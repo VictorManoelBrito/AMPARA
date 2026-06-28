@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "125232193329",
+    "project_id": "ampara-fbb95",
+    "storage_bucket": "ampara-fbb95.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125232193329:android:1851e3e7bb2ccd50721a10",
+        "android_client_info": {
+          "package_name": "com.victor.ampara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOmwGnOf9i9Hvc1PEsUZjnn36MEjhiq_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

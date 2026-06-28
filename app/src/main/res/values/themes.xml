@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme atualizado para Material 3 -->
+    <style name="Theme.Ampara" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Cores Principais -->
+        <item name="colorPrimary">@color/primary_ampara</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/primary_ampara_light</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/primary_ampara</item>
+    </style>
+</resources>

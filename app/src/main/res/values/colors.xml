@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nova Identidade Ampara -->
+    <color name="primary_ampara">#6750A4</color>
+    <color name="primary_ampara_light">#F3EDF7</color>
+
+    <!-- Cores de Suporte (para não quebrar layouts antigos) -->
+    <color name="primary_blue">#6750A4</color> <!-- Aponta para o roxo para manter consistência -->
+    <color name="text_gray">#757575</color>
+    <color name="text_dark">#49454F</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>
