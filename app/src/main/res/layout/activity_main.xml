@@ -370,7 +370,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:contentDescription="Icone Livro"
-                    android:src="@android:drawable/ic_menu_book"
+                    android:src="@android:drawable/ic_menu_help"
                     app:tint="#6750A4" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -438,7 +438,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:contentDescription="Home"
-        android:src="@android:drawable/ic_menu_home"
+        android:src="@android:drawable/ic_menu_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
