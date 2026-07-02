@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@android:drawable/ic_menu_revert"
+        app:navigationIcon="?attr/homeAsUpIndicator"
         app:navigationIconTint="@color/primary_ampara"
         app:title="Avaliação de Risco"
         app:titleCentered="true" />
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pergunta 1 de 5"
-                android:textColor="#6750A4"
+                android:textColor="@color/primary_ampara"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -96,7 +96,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@android:drawable/ic_dialog_alert"
-                app:tint="#6750A4" />
+                app:tint="@color/primary_ampara" />
 
             <TextView
                 android:id="@+id/tvTituloResultado"

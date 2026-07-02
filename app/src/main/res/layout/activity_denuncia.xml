@@ -17,7 +17,7 @@
             android:id="@+id/toolbarDenuncia"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@android:drawable/ic_menu_revert"
+            app:navigationIcon="?attr/homeAsUpIndicator"
             app:navigationIconTint="@color/primary_ampara"
             app:title="Registrar Denúncia"
             app:titleCentered="true"
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sua segurança é nossa prioridade"
-                android:textColor="#6750A4"
+                android:textColor="@color/primary_ampara"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif-medium" />
 
@@ -80,9 +80,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Tipo de Ocorrência"
-                        app:boxStrokeColor="#6750A4"
+                        app:boxStrokeColor="@color/primary_ampara"
                         app:errorEnabled="true"
-                        app:hintTextColor="#6750A4">
+                        app:hintTextColor="@color/primary_ampara">
 
                         <AutoCompleteTextView
                             android:id="@+id/autoCompleteTipo"
@@ -98,9 +98,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Data e Hora (Aproximada)"
-                        app:boxStrokeColor="#6750A4"
+                        app:boxStrokeColor="@color/primary_ampara"
                         app:errorEnabled="true"
-                        app:hintTextColor="#6750A4">
+                        app:hintTextColor="@color/primary_ampara">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editDataHora"
@@ -115,9 +115,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:hint="Localização"
-                        app:boxStrokeColor="#6750A4"
-                        app:hintTextColor="#6750A4">
+                        android:hint="Localização (GPS Automático)"
+                        app:boxStrokeColor="@color/primary_ampara"
+                        app:hintTextColor="@color/primary_ampara"
+                        app:endIconMode="custom"
+                        app:endIconDrawable="@android:drawable/ic_menu_mylocation">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editLocal"
@@ -127,15 +129,32 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilUrgencia"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="Nível de Urgência"
+                        app:boxStrokeColor="@color/primary_ampara"
+                        app:hintTextColor="@color/primary_ampara">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteUrgencia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilRelato"
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:hint="Relato Detalhado"
-                        app:boxStrokeColor="#6750A4"
+                        app:boxStrokeColor="@color/primary_ampara"
                         app:errorEnabled="true"
-                        app:hintTextColor="#6750A4">
+                        app:hintTextColor="@color/primary_ampara">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editRelato"
@@ -154,6 +173,18 @@
                         android:text="Fazer denúncia anônima"
                         android:textColor="#49454F"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvAvisoAnonimo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="#FFF3E0"
+                        android:padding="8dp"
+                        android:text="Atenção: Denúncias anônimas, por protocolos de investigação, podem levar mais tempo para serem analisadas."
+                        android:textColor="#E65100"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -177,7 +208,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Anexar Evidências"
-                        android:textColor="#6750A4"
+                        android:textColor="@color/primary_ampara"
                         android:textSize="16sp"
                         android:fontFamily="sans-serif-medium" />
 
@@ -240,7 +271,7 @@
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 app:cornerRadius="12dp"
-                android:backgroundTint="#6750A4"/>
+                android:backgroundTint="@color/primary_ampara"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

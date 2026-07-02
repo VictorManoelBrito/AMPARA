@@ -1,9 +1,12 @@
 package com.victor.ampara.model;
 
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.ServerTimestamp;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Denuncia {
+public class Denuncia implements Serializable {
+    @DocumentId
     private String id;
     private String tipo;
     private String dataHoraOcorrencia;
@@ -13,6 +16,8 @@ public class Denuncia {
     private String evidenciaUrl;
     private String usuarioId;
     private String status = "Em análise";
+    private String urgencia;
+    private String protocolo;
     
     @ServerTimestamp
     private Date dataCriacao;
@@ -32,6 +37,8 @@ public class Denuncia {
     }
 
     // Getters e Setters
+    public String getUrgencia() { return urgencia; }
+    public void setUrgencia(String urgencia) { this.urgencia = urgencia; }
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     
@@ -58,6 +65,9 @@ public class Denuncia {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getProtocolo() { return protocolo; }
+    public void setProtocolo(String protocolo) { this.protocolo = protocolo; }
 
     public Date getDataCriacao() { return dataCriacao; }
     public void setDataCriacao(Date dataCriacao) { this.dataCriacao = dataCriacao; }

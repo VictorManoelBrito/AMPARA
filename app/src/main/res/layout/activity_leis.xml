@@ -14,7 +14,7 @@
             android:id="@+id/toolbarLeis"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@android:drawable/ic_menu_revert"
+            app:navigationIcon="?attr/homeAsUpIndicator"
             app:navigationIconTint="@color/primary_ampara"
             app:title="Leis e Direitos"
             app:titleCentered="true" />

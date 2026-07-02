@@ -1,5 +1,6 @@
 package com.victor.ampara.ui;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,13 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
         holder.binding.tvTipo.setText(denuncia.getTipo());
         holder.binding.tvDataHora.setText(denuncia.getDataHoraOcorrencia());
         holder.binding.tvResumo.setText(denuncia.getRelato());
+
+        // Clique para abrir detalhes
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), DetalhesDenunciaActivity.class);
+            intent.putExtra("denuncia", denuncia);
+            v.getContext().startActivity(intent);
+        });
 
         // Configuração do Status
         String status = denuncia.getStatus() != null ? denuncia.getStatus() : "Em análise";

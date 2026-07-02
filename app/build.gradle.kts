@@ -39,6 +39,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.play.services.location)
+    implementation(libs.glide)
     
     // Firebase - Versões gerenciadas pelo libs.versions.toml
     implementation(platform(libs.firebase.bom))
