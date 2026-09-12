@@ -42,14 +42,19 @@ public class DenunciaAdapter extends RecyclerView.Adapter<DenunciaAdapter.Denunc
             v.getContext().startActivity(intent);
         });
 
-        // Configuração do Status
+        // Lógica de cores baseada no status e urgência
         String status = denuncia.getStatus() != null ? denuncia.getStatus() : "Em análise";
+        String urgencia = denuncia.getUrgencia() != null ? denuncia.getUrgencia() : "";
+        
         holder.binding.tvStatus.setText(status);
 
-        if (status.equalsIgnoreCase("Finalizado")) {
+        if (urgencia.contains("Urgente") || urgencia.equalsIgnoreCase("Alta")) {
+             holder.binding.tvStatus.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_status_urgent));
+             holder.binding.tvStatus.setText("URGENTE");
+        } else if (status.equalsIgnoreCase("Finalizado") || status.equalsIgnoreCase("Concluída")) {
             holder.binding.tvStatus.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_status_finalized));
         } else {
-            holder.binding.tvStatus.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_status_pending));
+            holder.binding.tvStatus.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.bg_status_analysis));
         }
 
         if (denuncia.getEvidenciaUrl() != null && !denuncia.getEvidenciaUrl().isEmpty()) {

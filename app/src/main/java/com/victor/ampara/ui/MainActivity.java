@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseStorage storage;
     private ActivityResultLauncher<Intent> pickImageLauncher;
+    private ListenerRegistration statusNotificationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,38 @@ public class MainActivity extends AppCompatActivity {
         configurarLauncher();
         configurarCliques();
         carregarDadosUsuario();
+        ouvirMudancasStatus();
+    }
+
+    private void ouvirMudancasStatus() {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            statusNotificationListener = db.collection("denuncias")
+                    .whereEqualTo("usuarioId", user.getUid())
+                    .addSnapshotListener((value, error) -> {
+                        if (value != null && !value.getMetadata().hasPendingWrites()) {
+                            for (com.google.firebase.firestore.DocumentChange dc : value.getDocumentChanges()) {
+                                if (dc.getType() == com.google.firebase.firestore.DocumentChange.Type.MODIFIED) {
+                                    String novoStatus = dc.getDocument().getString("status");
+                                    String tipo = dc.getDocument().getString("tipo");
+                                    com.victor.ampara.util.NotificationHelper.showNotification(
+                                            this, 
+                                            "Status Atualizado", 
+                                            "Sua denúncia de '" + tipo + "' agora está: " + novoStatus
+                                    );
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (statusNotificationListener != null) {
+            statusNotificationListener.remove();
+        }
     }
 
     private void configurarLauncher() {
@@ -114,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
         // Educacional
         binding.btnLeis.setOnClickListener(v -> startActivity(new Intent(this, LeisActivity.class)));
         binding.btnConteudo.setOnClickListener(v -> startActivity(new Intent(this, ConteudoActivity.class)));
-        binding.btnQuiz.setOnClickListener(v -> startActivity(new Intent(this, QuizActivity.class)));
-        binding.cardBannerQuiz.setOnClickListener(v -> startActivity(new Intent(this, QuizActivity.class)));
+        binding.btnQuiz.setOnClickListener(v -> startActivity(new Intent(this, QuizSelectionActivity.class)));
+        binding.cardBannerQuiz.setOnClickListener(v -> startActivity(new Intent(this, QuizSelectionActivity.class)));
 
         // NavigationView Itens
         binding.navigationView.setNavigationItemSelectedListener(item -> {
@@ -126,6 +161,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MinhasDenunciasActivity.class));
             } else if (id == R.id.nav_apoio) {
                 startActivity(new Intent(this, RedeApoioActivity.class));
+            } else if (id == R.id.nav_admin) {
+                startActivity(new Intent(this, AdminDashboardActivity.class));
+            } else if (id == R.id.nav_settings) {
+                startActivity(new Intent(this, SettingsActivity.class));
             } else if (id == R.id.nav_logout) {
                 auth.signOut();
                 startActivity(new Intent(this, LoginActivity.class));
@@ -146,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {
                     db.collection("Usuarios").document(userId)
                             .update("fotoUrl", downloadUri.toString())
-                            .addOnSuccessListener(aVoid -> Toast.makeText(MainActivity.this, "Foto atualizada!", Toast.LENGTH_SHORT).show())
+                            .addOnSuccessListener(aVoid -> Snackbar.make(binding.getRoot(), "✔ Perfil atualizado com sucesso!", Snackbar.LENGTH_SHORT).show())
                             .addOnFailureListener(e -> Toast.makeText(MainActivity.this, "Erro ao salvar link", Toast.LENGTH_SHORT).show());
                 }))
                 .addOnFailureListener(e -> Toast.makeText(this, "Erro no upload", Toast.LENGTH_SHORT).show());

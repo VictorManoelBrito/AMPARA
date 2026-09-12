@@ -3,6 +3,7 @@ package com.victor.ampara.ui;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -18,66 +19,90 @@ import com.victor.ampara.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private final String[] mensagens = {"Preencha todos os campos", "Login efetuado com sucesso"};
 
     @Override
     protected void onStart(){
         super.onStart();
-
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             irParaTelaPrincipal();
         }
     }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Clique para abrir a tela de Cadastro
         binding.tvRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
 
-        // Clique para realizar o Login
         binding.btnLogin.setOnClickListener(v -> {
             String email = binding.edtEmail.getText().toString();
             String password = binding.edtPassword.getText().toString();
 
-            if (email.isEmpty() || password.isEmpty()) {
-                exibirSnackbar(v, mensagens[0]);
-            } else {
+            if (validarCampos(email, password)) {
                 autenticarUsuario(v, email, password);
             }
         });
     }
 
-    private void autenticarUsuario(View v, String email, String password) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    exibirSnackbar(v, mensagens[1]);
-                    irParaTelaPrincipal();
-                } else {
-                    String erro = "Erro ao fazer login. Verifique e-mail e senha.";
-                    exibirSnackbar(v, erro);
-                }
-            }
-        });
+    private boolean validarCampos(String email, String password) {
+        binding.tilEmail.setError(null);
+        binding.tilPassword.setError(null);
+
+        if (email.isEmpty()) {
+            binding.tilEmail.setError("Informe seu e-mail");
+            return false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.tilEmail.setError("Informe um e-mail válido");
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            binding.tilPassword.setError("Informe sua senha");
+            return false;
+        }
+
+        return true;
     }
+
+    private void autenticarUsuario(View v, String email, String password) {
+        // Desabilitar botão para evitar cliques duplos
+        binding.btnLogin.setEnabled(false);
+        binding.btnLogin.setText("Acessando...");
+
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        irParaTelaPrincipal();
+                    } else {
+                        binding.btnLogin.setEnabled(true);
+                        binding.btnLogin.setText("Entrar");
+                        
+                        // Mensagem genérica por segurança: não diz se o erro é no e-mail ou na senha
+                        String erroSeguro = "E-mail ou senha incorretos. Tente novamente.";
+                        exibirSnackbar(v, erroSeguro);
+                        
+                        // Opcional: destacar ambos os campos em vermelho
+                        binding.tilEmail.setError(" ");
+                        binding.tilPassword.setError(" ");
+                    }
+                });
+    }
+
     private void irParaTelaPrincipal(){
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
 
     private void exibirSnackbar(View v, String mensagem) {
-        Snackbar snackbar = Snackbar.make(v, mensagem, Snackbar.LENGTH_SHORT);
-        snackbar.setBackgroundTint(Color.WHITE);
-        snackbar.setTextColor(Color.BLACK);
-        snackbar.show();
+        Snackbar.make(v, mensagem, Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(Color.WHITE)
+                .setTextColor(Color.BLACK)
+                .show();
     }
 }

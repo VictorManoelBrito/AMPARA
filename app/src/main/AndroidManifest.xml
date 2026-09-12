@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -17,15 +18,28 @@
         android:theme="@style/Theme.Ampara" >
         <activity
             android:name=".ui.LoginActivity"
+            android:enabled="true"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Ampara" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity-alias
+            android:name=".ui.LoginActivityAlias"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:label="Bloco de Notas"
+            android:targetActivity=".ui.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
 
         <activity
             android:name=".ui.RegisterActivity"
@@ -37,6 +51,9 @@
         <activity android:name=".ui.QuizActivity"
             android:exported="false"
             android:label="Quiz" />
+        <activity android:name=".ui.QuizSelectionActivity"
+            android:exported="false"
+            android:label="Temas do Quiz" />
         <activity android:name=".ui.DenunciaActivity"
             android:exported="false"
             android:label="Registrar Denúncia" />
@@ -55,6 +72,12 @@
         <activity android:name=".ui.DetalhesDenunciaActivity"
             android:exported="false"
             android:label="Detalhes da Denúncia" />
+        <activity android:name=".ui.SettingsActivity"
+            android:exported="false"
+            android:label="Configurações" />
+        <activity android:name=".ui.AdminDashboardActivity"
+            android:exported="false"
+            android:label="Painel Administrativo" />
     </application>
 
 </manifest>

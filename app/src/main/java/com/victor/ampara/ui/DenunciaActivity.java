@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.victor.ampara.databinding.ActivityDenunciaBinding;
 import com.victor.ampara.model.Denuncia;
+import com.victor.ampara.util.NotificationHelper;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -51,42 +55,80 @@ public class DenunciaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDenunciaBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        try {
+            binding = ActivityDenunciaBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
 
-        db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
-        auth = FirebaseAuth.getInstance();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            db = FirebaseFirestore.getInstance();
+            storage = FirebaseStorage.getInstance();
+            auth = FirebaseAuth.getInstance();
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        configurarLauncher();
-        configurarToolbar();
-        configurarDropdowns();
-        configurarDataHora();
-        configurarCliques();
-        obterLocalizacaoAtual();
+            configurarLauncher();
+            configurarToolbar();
+            configurarDropdowns();
+            configurarDataHora();
+            configurarCliques();
+            
+            // Tenta obter a localização de forma segura
+            obterLocalizacaoSimples();
+            
+        } catch (Exception e) {
+            Toast.makeText(this, "Erro ao carregar tela: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
-    private void obterLocalizacaoAtual() {
+    private void obterLocalizacaoSimples() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
             return;
         }
 
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
             if (location != null) {
-                try {
-                    Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    if (addresses != null && !addresses.isEmpty()) {
-                        String address = addresses.get(0).getAddressLine(0);
-                        binding.editLocal.setText(address);
-                    }
-                } catch (Exception e) {
-                    binding.editLocal.setText(String.format(Locale.US, "%.6f, %.6f", location.getLatitude(), location.getLongitude()));
-                }
+                preencherCampoLocalizacao(location);
+            } else {
+                obterLocalizacaoAtualReal();
             }
         });
+    }
+
+    private void obterLocalizacaoAtualReal() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return;
+
+        CancellationTokenSource cts = new CancellationTokenSource();
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, cts.getToken())
+                .addOnSuccessListener(location -> {
+                    if (location != null) {
+                        preencherCampoLocalizacao(location);
+                    }
+                });
+    }
+
+    private void preencherCampoLocalizacao(Location location) {
+        new Thread(() -> {
+            try {
+                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                if (addresses != null && !addresses.isEmpty()) {
+                    String endereco = addresses.get(0).getAddressLine(0);
+                    runOnUiThread(() -> binding.editLocal.setText(endereco));
+                } else {
+                    runOnUiThread(() -> binding.editLocal.setText(String.format(Locale.US, "%.6f, %.6f", location.getLatitude(), location.getLongitude())));
+                }
+            } catch (Exception e) {
+                runOnUiThread(() -> binding.editLocal.setText(String.format(Locale.US, "%.6f, %.6f", location.getLatitude(), location.getLongitude())));
+            }
+        }).start();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            obterLocalizacaoSimples();
+        }
     }
 
     private void configurarDataHora() {
@@ -113,6 +155,7 @@ public class DenunciaActivity extends AppCompatActivity {
                             binding.tvArquivosAnexados.setText("Arquivo selecionado: " + selectedFileUri.getLastPathSegment());
                             binding.tvArquivosAnexados.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
                             binding.btnRemoverAnexo.setVisibility(View.VISIBLE);
+                            Snackbar.make(binding.getRoot(), "✔ Evidência anexada com sucesso!", Snackbar.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -177,22 +220,7 @@ public class DenunciaActivity extends AppCompatActivity {
         String urgencia = binding.autoCompleteUrgencia.getText().toString();
         boolean anonimo = binding.switchAnonimo.isChecked();
 
-        boolean valido = true;
-
-        if (tipo.isEmpty()) {
-            binding.tilTipo.setError("Selecione o tipo");
-            valido = false;
-        }
-        if (dataHora.isEmpty()) {
-            binding.tilDataHora.setError("Informe a data");
-            valido = false;
-        }
-        if (relato.isEmpty()) {
-            binding.tilRelato.setError("Descreva o ocorrido");
-            valido = false;
-        }
-
-        if (!valido) {
+        if (tipo.isEmpty() || dataHora.isEmpty() || relato.isEmpty()) {
             Snackbar.make(binding.getRoot(), "Preencha os campos obrigatórios", Snackbar.LENGTH_SHORT).show();
             return;
         }
@@ -210,13 +238,6 @@ public class DenunciaActivity extends AppCompatActivity {
         binding.btnEnviarDenuncia.setEnabled(!loading);
         binding.btnEnviarDenuncia.setText(loading ? "Enviando..." : "Enviar Denúncia");
         binding.progressEnvio.setVisibility(loading ? View.VISIBLE : View.GONE);
-        
-        binding.autoCompleteTipo.setEnabled(!loading);
-        binding.editDataHora.setEnabled(!loading);
-        binding.editLocal.setEnabled(!loading);
-        binding.editRelato.setEnabled(!loading);
-        binding.btnAnexar.setEnabled(!loading);
-        binding.switchAnonimo.setEnabled(!loading);
     }
 
     private void fazerUploadEvidencia(String tipo, String dataHora, String local, String relato, String urgencia, boolean anonimo) {
@@ -237,7 +258,6 @@ public class DenunciaActivity extends AppCompatActivity {
         String userId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "anonimo";
         String emailUsuario = auth.getCurrentUser() != null ? auth.getCurrentUser().getEmail() : null;
 
-        // Gerar Protocolo: AMP-2026-XXXX
         String protocolo = "AMP-" + Calendar.getInstance().get(Calendar.YEAR) + "-" + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
 
         Denuncia denuncia = new Denuncia(tipo, dataHora, local, relato, anonimo, userId);
@@ -249,12 +269,13 @@ public class DenunciaActivity extends AppCompatActivity {
                 .add(denuncia)
                 .addOnSuccessListener(documentReference -> {
                     setLoading(false);
-
                     if (!anonimo && emailUsuario != null) {
                         solicitarEnvioEmailAutomatico(emailUsuario, protocolo, tipo);
                     }
                     
-                    Toast.makeText(this, "Denúncia registrada! Protocolo: " + protocolo, Toast.LENGTH_LONG).show();
+                    NotificationHelper.showNotification(this, "Denúncia Registrada", "Sua denúncia foi registrada com sucesso. Protocolo: " + protocolo);
+
+                    Toast.makeText(this, "✔ Denúncia enviada com sucesso! Protocolo: " + protocolo, Toast.LENGTH_LONG).show();
                     finish();
                 })
                 .addOnFailureListener(e -> {
@@ -266,17 +287,10 @@ public class DenunciaActivity extends AppCompatActivity {
     private void solicitarEnvioEmailAutomatico(String email, String protocolo, String tipo) {
         Map<String, Object> mail = new HashMap<>();
         mail.put("to", email);
-        
         Map<String, Object> message = new HashMap<>();
         message.put("subject", "Confirmação de Denúncia - AMPARA");
-        message.put("text", "Olá,\n\nSua denúncia do tipo '" + tipo + "' foi registrada com sucesso.\n\n" +
-                "Protocolo: " + protocolo + "\n\n" +
-                "Nossa equipe analisará os dados em breve.\n" +
-                "Mantenha-se em segurança.");
-        
+        message.put("text", "Sua denúncia foi registrada. Protocolo: " + protocolo);
         mail.put("message", message);
-
-        // O Firebase Extension 'Trigger Email' escuta esta coleção 'mail'
         db.collection("mail").add(mail);
     }
 }
