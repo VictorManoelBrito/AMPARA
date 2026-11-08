@@ -32,18 +32,9 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void configurarQuizPorTema() {
-        if ("direitos".equals(temaAtual)) {
-            binding.toolbar.setTitle("Conheça seus Direitos");
-            perguntas = new String[]{
-                    "A Lei Maria da Penha protege apenas contra violência física?",
-                    "A vítima pode desistir da denúncia em qualquer momento na delegacia?",
-                    "Medidas protetivas podem ser concedidas em até 48 horas?",
-                    "A violência patrimonial (quebrar celular, reter documentos) é crime?",
-                    "O agressor pode ser preso mesmo se não houver flagrante?"
-            };
-            pesos = new int[]{1, 1, 1, 1, 1}; // Quiz informativo: 1 ponto por resposta 'Sim' (que aqui seriam as corretas)
-        } else if ("ciclo".equals(temaAtual)) {
-            binding.toolbar.setTitle("Ciclo da Violência");
+        // Autoavaliações (Sim/Não). Os quizzes educativos ficam em QuizEducativoActivity.
+        if ("ciclo".equals(temaAtual)) {
+            binding.toolbar.setTitle("Sinais do Ciclo da Violência");
             perguntas = new String[]{
                     "Você sente que precisa 'pisar em ovos' para não irritar o parceiro?",
                     "Após uma briga, ele costuma pedir desculpas exageradas e dar presentes?",
@@ -123,9 +114,15 @@ public class QuizActivity extends AppCompatActivity {
                 orientacao = "Fique atenta aos sinais. Fortaleça sua rede de apoio.";
             }
         } else {
-            // Resultados para os outros quizes (Informativos)
-            nivel = "CONCLUÍDO";
-            orientacao = "Parabéns por buscar informação! O conhecimento é sua melhor proteção.";
+            // Resultado da autoavaliação do Ciclo da Violência
+            if (scoreTotal >= 6) {
+                nivel = "ATENÇÃO AOS SINAIS";
+                cor = ContextCompat.getColor(this, android.R.color.holo_orange_dark);
+                orientacao = "Suas respostas indicam sinais do ciclo da violência. Você não está sozinha: veja a Rede de Apoio ou ligue 180.";
+            } else {
+                nivel = "CONCLUÍDO";
+                orientacao = "Obrigado por refletir sobre isso. Conheça os sinais em Conteúdos Educativos e, se precisar, procure a Rede de Apoio.";
+            }
             icone = android.R.drawable.ic_menu_save;
         }
 

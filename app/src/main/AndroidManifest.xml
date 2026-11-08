@@ -78,6 +78,15 @@
         <activity android:name=".ui.AdminDashboardActivity"
             android:exported="false"
             android:label="Painel Administrativo" />
+        <activity android:name=".ui.DetalhesInstituicaoActivity"
+            android:exported="false"
+            android:label="Detalhes da Instituição" />
+        <activity android:name=".ui.LeituraActivity"
+            android:exported="false"
+            android:label="Leitura" />
+        <activity android:name=".ui.QuizEducativoActivity"
+            android:exported="false"
+            android:label="Quiz" />
     </application>
 
 </manifest>

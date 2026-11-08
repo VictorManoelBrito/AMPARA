@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="#F8F9FA"
+    tools:context=".ui.ConteudoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+        android:background="@color/white">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbarConteudo"
@@ -16,9 +18,8 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:navigationIconTint="@color/primary_ampara"
-            app:title="Conteúdo Educativo"
-            app:titleCentered="true" />
-
+            app:title="Conteúdos Educativos"
+            app:titleTextColor="@color/primary_ampara" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -30,80 +31,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="16dp">
 
-            <com.google.android.material.card.MaterialCardView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp">
+                android:layout_marginBottom="12dp"
+                android:text="Informações sobre violência, discriminação e como buscar ajuda. Toque em um tema para ler."
+                android:textColor="@color/text_dark"
+                android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tipos de Violência"
-                        android:textColor="@color/primary_ampara"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="A violência contra a mulher não é apenas física. Conheça as formas previstas na lei:"
-                        android:textColor="#49454F"
-                        android:textStyle="italic" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="1. Física: Qualquer conduta que ofenda a integridade ou saúde corporal.\n\n2. Psicológica: Causar dano emocional, diminuição da autoestima ou controle de ações e decisões.\n\n3. Sexual: Constranger a presenciar, a manter ou a participar de relação sexual não desejada.\n\n4. Patrimonial: Retenção, subtração, destruição parcial ou total de objetos, instrumentos de trabalho ou bens.\n\n5. Moral: Calúnia, difamação ou injúria."
-                        android:textColor="#49454F"
-                        android:lineSpacingExtra="4sp" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvConteudos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ciclo da Violência"
-                        android:textColor="@color/primary_ampara"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="O ciclo geralmente se repete em três fases:\n\n1. Aumento da tensão (insultos, ameaças).\n2. Ato de violência (explosão).\n3. Lua de mel (arrependimento e promessas de mudança)."
-                        android:textColor="#49454F"
-                        android:lineSpacingExtra="4sp" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
+                android:nestedScrollingEnabled="false" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
