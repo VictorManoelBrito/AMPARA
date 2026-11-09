@@ -88,31 +88,40 @@ public class DenunciaActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Pede a localização ATUAL ao GPS. A "última localização conhecida" só é usada
+     * como reserva, pois pode estar desatualizada (ex.: emulador após trocar o ponto).
+     */
     private void obterLocalizacaoSimples() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
             return;
         }
 
-        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
-            if (location != null) {
-                preencherCampoLocalizacao(location);
-            } else {
-                obterLocalizacaoAtualReal();
-            }
-        });
-    }
-
-    private void obterLocalizacaoAtualReal() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return;
-
+        binding.editLocal.setHint("Obtendo localização...");
         CancellationTokenSource cts = new CancellationTokenSource();
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, cts.getToken())
                 .addOnSuccessListener(location -> {
                     if (location != null) {
                         preencherCampoLocalizacao(location);
+                    } else {
+                        usarUltimaLocalizacao();
                     }
-                });
+                })
+                .addOnFailureListener(e -> usarUltimaLocalizacao());
+    }
+
+    private void usarUltimaLocalizacao() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return;
+
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) {
+                preencherCampoLocalizacao(location);
+            } else {
+                binding.editLocal.setHint("");
+                Toast.makeText(this, "Não foi possível obter a localização. Digite o bairro e a cidade.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /**
@@ -145,7 +154,10 @@ public class DenunciaActivity extends AppCompatActivity {
                         bairroDetectado = bairro;
                         cidadeDetectada = cidade;
                         localDetectado = texto.toString();
-                        runOnUiThread(() -> binding.editLocal.setText(localDetectado));
+                        runOnUiThread(() -> {
+                            binding.editLocal.setHint("");
+                            binding.editLocal.setText(localDetectado);
+                        });
                     }
                 }
             } catch (Exception e) {
@@ -260,6 +272,12 @@ public class DenunciaActivity extends AppCompatActivity {
                 binding.tilUrgencia.setEnabled(true);
                 binding.autoCompleteUrgencia.setText("", false);
             }
+        });
+
+        // Ícone 📍 do campo de localização: busca a localização atual novamente
+        binding.tilLocal.setEndIconOnClickListener(v -> {
+            Toast.makeText(this, "Atualizando localização...", Toast.LENGTH_SHORT).show();
+            obterLocalizacaoSimples();
         });
 
         binding.btnAnexar.setOnClickListener(v -> abrirSelecionadorDeArquivos());
