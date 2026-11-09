@@ -18,6 +18,8 @@ public class Denuncia implements Serializable {
     private String status = "Em análise";
     private String urgencia;
     private String protocolo;
+    private String bairro;
+    private String cidade;
     
     @ServerTimestamp
     private Date dataCriacao;
@@ -68,6 +70,12 @@ public class Denuncia implements Serializable {
 
     public String getProtocolo() { return protocolo; }
     public void setProtocolo(String protocolo) { this.protocolo = protocolo; }
+
+    public String getBairro() { return bairro; }
+    public void setBairro(String bairro) { this.bairro = bairro; }
+
+    public String getCidade() { return cidade; }
+    public void setCidade(String cidade) { this.cidade = cidade; }
 
     public Date getDataCriacao() { return dataCriacao; }
     public void setDataCriacao(Date dataCriacao) { this.dataCriacao = dataCriacao; }

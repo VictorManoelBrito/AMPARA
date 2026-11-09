@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth auth;
     private FirebaseStorage storage;
-    private ActivityResultLauncher<Intent> pickImageLauncher;
     private ListenerRegistration statusNotificationListener;
 
     @Override
@@ -45,10 +44,24 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
 
-        configurarLauncher();
         configurarCliques();
         carregarDadosUsuario();
         ouvirMudancasStatus();
+        configurarNotificacoes();
+    }
+
+    /** Firebase Cloud Messaging: canal, permissão (Android 13+) e registro do aparelho. */
+    private void configurarNotificacoes() {
+        com.victor.ampara.util.NotificationHelper.createNotificationChannel(this);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU
+                && androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            androidx.core.app.ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 200);
+        }
+
+        com.victor.ampara.util.SessaoHelper.registrarNotificacoes();
     }
 
     private void ouvirMudancasStatus() {
@@ -82,20 +95,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void configurarLauncher() {
-        pickImageLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Uri imageUri = result.getData().getData();
-                        if (imageUri != null) {
-                            fazerUploadFotoPerfil(imageUri);
-                        }
-                    }
-                }
-        );
-    }
-
     private void carregarDadosUsuario() {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
@@ -113,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
             db.collection("Usuarios").document(userId)
                     .addSnapshotListener((documentSnapshot, error) -> {
                         if (documentSnapshot != null && documentSnapshot.exists()) {
+                            // LGPD: o CPF não é mais coletado; remove de cadastros antigos.
+                            if (documentSnapshot.contains("cpf")) {
+                                documentSnapshot.getReference().update("cpf", com.google.firebase.firestore.FieldValue.delete());
+                            }
+
                             String nome = documentSnapshot.getString("nome");
                             String fotoUrl = documentSnapshot.getString("fotoUrl");
                             
@@ -134,12 +138,8 @@ public class MainActivity extends AppCompatActivity {
         // Menu Lateral
         binding.imgMenu.setOnClickListener(v -> binding.drawerLayout.openDrawer(GravityCompat.START));
 
-        // Perfil (Mudar foto)
-        binding.cardProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            pickImageLauncher.launch(intent);
-        });
+        // Perfil do Usuário (3.1.8)
+        binding.cardProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
 
         // Cards principais
         binding.cardDenuncia.setOnClickListener(v -> startActivity(new Intent(this, DenunciaActivity.class)));
@@ -161,33 +161,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MinhasDenunciasActivity.class));
             } else if (id == R.id.nav_apoio) {
                 startActivity(new Intent(this, RedeApoioActivity.class));
-            } else if (id == R.id.nav_admin) {
-                startActivity(new Intent(this, AdminDashboardActivity.class));
+            } else if (id == R.id.nav_perfil) {
+                startActivity(new Intent(this, PerfilActivity.class));
             } else if (id == R.id.nav_settings) {
                 startActivity(new Intent(this, SettingsActivity.class));
             } else if (id == R.id.nav_logout) {
-                auth.signOut();
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
+                com.victor.ampara.util.SessaoHelper.sair(this);
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
-    }
-
-    private void fazerUploadFotoPerfil(Uri uri) {
-        String userId = auth.getCurrentUser().getUid();
-        StorageReference ref = storage.getReference().child("perfis/" + userId + ".jpg");
-
-        Toast.makeText(this, "Atualizando foto...", Toast.LENGTH_SHORT).show();
-
-        ref.putFile(uri)
-                .addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {
-                    db.collection("Usuarios").document(userId)
-                            .update("fotoUrl", downloadUri.toString())
-                            .addOnSuccessListener(aVoid -> Snackbar.make(binding.getRoot(), "✔ Perfil atualizado com sucesso!", Snackbar.LENGTH_SHORT).show())
-                            .addOnFailureListener(e -> Toast.makeText(MainActivity.this, "Erro ao salvar link", Toast.LENGTH_SHORT).show());
-                }))
-                .addOnFailureListener(e -> Toast.makeText(this, "Erro no upload", Toast.LENGTH_SHORT).show());
     }
 }

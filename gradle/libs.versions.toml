@@ -34,6 +34,7 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }

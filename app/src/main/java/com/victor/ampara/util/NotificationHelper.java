@@ -12,7 +12,7 @@ import com.victor.ampara.R;
 
 public class NotificationHelper {
 
-    private static final String CHANNEL_ID = "ampara_notifications";
+    public static final String CHANNEL_ID = "ampara_notifications";
     private static final String CHANNEL_NAME = "Notificações Ampara";
     private static final String CHANNEL_DESC = "Atualizações sobre suas denúncias";
 
@@ -36,7 +36,7 @@ public class NotificationHelper {
         }
     }
 
-    private static void createNotificationChannel(Context context) {
+    public static void createNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,

@@ -3,6 +3,9 @@ package com.victor.ampara.ui;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -25,6 +28,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.CancellationTokenSource;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,6 +55,11 @@ public class DenunciaActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private FirebaseAuth auth;
     private FusedLocationProviderClient fusedLocationClient;
+
+    // Localização aproximada (LGPD): apenas bairro e cidade, nunca rua/número.
+    private String bairroDetectado;
+    private String cidadeDetectada;
+    private String localDetectado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,19 +115,41 @@ public class DenunciaActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Converte a posição do GPS em uma localização APROXIMADA (bairro e cidade).
+     * Rua, número e coordenadas não são salvos, para proteger a vítima.
+     */
     private void preencherCampoLocalizacao(Location location) {
         new Thread(() -> {
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 if (addresses != null && !addresses.isEmpty()) {
-                    String endereco = addresses.get(0).getAddressLine(0);
-                    runOnUiThread(() -> binding.editLocal.setText(endereco));
-                } else {
-                    runOnUiThread(() -> binding.editLocal.setText(String.format(Locale.US, "%.6f, %.6f", location.getLatitude(), location.getLongitude())));
+                    Address a = addresses.get(0);
+                    String bairro = a.getSubLocality();
+                    String cidade = a.getLocality() != null ? a.getLocality() : a.getSubAdminArea();
+                    String estado = a.getAdminArea();
+
+                    StringBuilder texto = new StringBuilder();
+                    if (bairro != null && !bairro.isEmpty()) texto.append(bairro);
+                    if (cidade != null && !cidade.isEmpty()) {
+                        if (texto.length() > 0) texto.append(", ");
+                        texto.append(cidade);
+                    }
+                    if (estado != null && !estado.isEmpty()) {
+                        if (texto.length() > 0) texto.append(" - ");
+                        texto.append(estado);
+                    }
+
+                    if (texto.length() > 0) {
+                        bairroDetectado = bairro;
+                        cidadeDetectada = cidade;
+                        localDetectado = texto.toString();
+                        runOnUiThread(() -> binding.editLocal.setText(localDetectado));
+                    }
                 }
             } catch (Exception e) {
-                runOnUiThread(() -> binding.editLocal.setText(String.format(Locale.US, "%.6f, %.6f", location.getLatitude(), location.getLongitude())));
+                // Sem conexão ou geocoder indisponível: o usuário pode digitar bairro e cidade.
             }
         }).start();
     }
@@ -167,7 +198,17 @@ public class DenunciaActivity extends AppCompatActivity {
     }
 
     private void configurarDropdowns() {
-        String[] tipos = {"Violência Doméstica", "Assédio", "Ameaça", "Outros"};
+        String[] tipos = {
+                "Violência Doméstica",
+                "Assédio",
+                "Ameaça",
+                "Discriminação Racial",
+                "LGBTfobia",
+                "Crime Cibernético - Ameaça Virtual",
+                "Crime Cibernético - Invasão de Conta",
+                "Crime Cibernético - Divulgação Indevida de Conteúdo",
+                "Outros"
+        };
         ArrayAdapter<String> adapterTipos = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, tipos);
         binding.autoCompleteTipo.setAdapter(adapterTipos);
 
@@ -255,8 +296,9 @@ public class DenunciaActivity extends AppCompatActivity {
     }
 
     private void salvarNoFirestore(String tipo, String dataHora, String local, String relato, String urgencia, boolean anonimo, String url) {
-        String userId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : "anonimo";
-        String emailUsuario = auth.getCurrentUser() != null ? auth.getCurrentUser().getEmail() : null;
+        // Denúncia anônima: NÃO vincula o usuário (sem usuarioId e sem e-mail).
+        String userId = (!anonimo && auth.getCurrentUser() != null) ? auth.getCurrentUser().getUid() : null;
+        String emailUsuario = (!anonimo && auth.getCurrentUser() != null) ? auth.getCurrentUser().getEmail() : null;
 
         String protocolo = "AMP-" + Calendar.getInstance().get(Calendar.YEAR) + "-" + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
 
@@ -265,23 +307,47 @@ public class DenunciaActivity extends AppCompatActivity {
         denuncia.setUrgencia(urgencia);
         denuncia.setProtocolo(protocolo);
 
+        // Bairro/cidade só são usados se o usuário manteve a localização detectada.
+        if (localDetectado != null && localDetectado.equals(local)) {
+            denuncia.setBairro(bairroDetectado);
+            denuncia.setCidade(cidadeDetectada);
+        }
+
         db.collection("denuncias")
                 .add(denuncia)
                 .addOnSuccessListener(documentReference -> {
                     setLoading(false);
-                    if (!anonimo && emailUsuario != null) {
+                    if (emailUsuario != null) {
                         solicitarEnvioEmailAutomatico(emailUsuario, protocolo, tipo);
                     }
-                    
-                    NotificationHelper.showNotification(this, "Denúncia Registrada", "Sua denúncia foi registrada com sucesso. Protocolo: " + protocolo);
 
-                    Toast.makeText(this, "✔ Denúncia enviada com sucesso! Protocolo: " + protocolo, Toast.LENGTH_LONG).show();
-                    finish();
+                    NotificationHelper.showNotification(this, "Denúncia Registrada", "Sua denúncia foi registrada com sucesso. Protocolo: " + protocolo);
+                    mostrarProtocolo(protocolo, anonimo);
                 })
                 .addOnFailureListener(e -> {
                     setLoading(false);
                     Snackbar.make(binding.getRoot(), "Erro ao salvar: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
                 });
+    }
+
+    /** Mostra o protocolo para o usuário anotar (essencial na denúncia anônima). */
+    private void mostrarProtocolo(String protocolo, boolean anonimo) {
+        String mensagem = "Protocolo: " + protocolo + "\n\n" + (anonimo
+                ? "Como a denúncia é anônima, ela não fica vinculada à sua conta e não aparecerá em \"Minhas denúncias\". Anote o número do protocolo."
+                : "Você pode acompanhar o andamento em \"Minhas denúncias\".");
+
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Denúncia enviada")
+                .setMessage(mensagem)
+                .setCancelable(false)
+                .setNeutralButton("Copiar protocolo", (d, w) -> {
+                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    if (cm != null) cm.setPrimaryClip(ClipData.newPlainText("Protocolo AMPARA", protocolo));
+                    Toast.makeText(this, "Protocolo copiado", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .setPositiveButton("OK", (d, w) -> finish())
+                .show();
     }
 
     private void solicitarEnvioEmailAutomatico(String email, String protocolo, String tipo) {

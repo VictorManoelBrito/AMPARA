@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.victor.ampara.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            irParaTelaPrincipal();
+            verificarContaAtiva(null);
         }
     }
 
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        irParaTelaPrincipal();
+                        verificarContaAtiva(v);
                     } else {
                         binding.btnLogin.setEnabled(true);
                         binding.btnLogin.setText("Entrar");
@@ -90,6 +91,30 @@ public class LoginActivity extends AppCompatActivity {
                         // Opcional: destacar ambos os campos em vermelho
                         binding.tilEmail.setError(" ");
                         binding.tilPassword.setError(" ");
+                    }
+                });
+    }
+
+    /**
+     * Contas desativadas pelo administrador (campo "ativo" = false em Usuarios)
+     * não podem acessar o aplicativo.
+     */
+    private void verificarContaAtiva(View v) {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseFirestore.getInstance().collection("Usuarios").document(uid).get()
+                .addOnCompleteListener(task -> {
+                    boolean desativada = task.isSuccessful()
+                            && task.getResult() != null
+                            && Boolean.FALSE.equals(task.getResult().getBoolean("ativo"));
+
+                    if (desativada) {
+                        FirebaseAuth.getInstance().signOut();
+                        binding.btnLogin.setEnabled(true);
+                        binding.btnLogin.setText("Entrar");
+                        exibirSnackbar(v != null ? v : binding.getRoot(),
+                                "Sua conta está desativada. Entre em contato com o suporte do AMPARA.");
+                    } else {
+                        irParaTelaPrincipal();
                     }
                 });
     }

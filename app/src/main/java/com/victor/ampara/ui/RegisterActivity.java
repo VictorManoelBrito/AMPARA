@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.victor.ampara.databinding.ActivityRegisterBinding;
 
@@ -46,32 +47,29 @@ public class RegisterActivity extends AppCompatActivity {
             
             String name = binding.edtName.getText().toString();
             String phone = binding.edtPhone.getText().toString();
-            String cpf = binding.edtCpf.getText().toString();
             String email = binding.edtEmail.getText().toString();
             String password = binding.edtPassword.getText().toString();
             String confirmPassword = binding.edtConfirmPassword.getText().toString();
 
-            if (validarCampos(name, phone, cpf, email, password, confirmPassword)) {
-                cadastrarUsuario(v, name, phone, cpf, email, password);
+            if (validarCampos(name, phone, email, password, confirmPassword)) {
+                cadastrarUsuario(v, name, phone, email, password);
             }
         });
     }
 
     private void configurarMascaras() {
         binding.edtPhone.addTextChangedListener(new MaskWatcher("(##) #####-####"));
-        binding.edtCpf.addTextChangedListener(new MaskWatcher("###.###.###-##"));
     }
 
     private void limparErros() {
         binding.tilName.setError(null);
         binding.tilPhone.setError(null);
-        binding.tilCpf.setError(null);
         binding.tilEmail.setError(null);
         binding.tilPassword.setError(null);
         binding.tilConfirmPassword.setError(null);
     }
 
-    private boolean validarCampos(String name, String phone, String cpf, String email, String password, String confirmPassword) {
+    private boolean validarCampos(String name, String phone, String email, String password, String confirmPassword) {
         boolean valido = true;
 
         if (name.isEmpty()) {
@@ -81,11 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (phone.length() < 14) {
             binding.tilPhone.setError("Informe um telefone válido");
-            valido = false;
-        }
-
-        if (!validarCPF(cpf)) {
-            binding.tilCpf.setError("CPF inválido");
             valido = false;
         }
 
@@ -112,49 +105,11 @@ public class RegisterActivity extends AppCompatActivity {
         return Pattern.compile(regex).matcher(password).matches();
     }
 
-    private boolean validarCPF(String cpf) {
-        cpf = cpf.replaceAll("[^\\d]", "");
-        if (cpf.length() != 11) return false;
-        if (cpf.matches("(\\d)\\1{10}")) return false;
-        
-        // Simples validação de CPF (lógica básica)
-        try {
-            int d1, d2;
-            int digito1, digito2, resto;
-            int num;
-            String nDigResult;
-
-            d1 = d2 = 0;
-            digito1 = digito2 = resto = 0;
-
-            for (int nCount = 1; nCount < cpf.length() - 1; nCount++) {
-                num = Integer.parseInt(cpf.substring(nCount - 1, nCount));
-                d1 = d1 + (11 - nCount) * num;
-                d2 = d2 + (12 - nCount) * num;
-            }
-
-            resto = (d1 % 11);
-            if (resto < 2) digito1 = 0;
-            else digito1 = 11 - resto;
-
-            d2 = d2 + 2 * digito1;
-            resto = (d2 % 11);
-            if (resto < 2) digito2 = 0;
-            else digito2 = 11 - resto;
-
-            String nDigVerific = cpf.substring(cpf.length() - 2, cpf.length());
-            nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
-            return nDigVerific.equals(nDigResult);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private void cadastrarUsuario(View v, String name, String phone, String cpf, String email, String password) {
+    private void cadastrarUsuario(View v, String name, String phone, String email, String password) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        salvarDadosUsuario(name, phone, cpf);
+                        salvarDadosUsuario(name, phone, email);
                         exibirSnackbar(v, mensagens[3]);
                         new Handler().postDelayed(this::finish, 2000);
                     } else {
@@ -175,12 +130,18 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private void salvarDadosUsuario(String name, String phone, String cpf) {
+    /**
+     * Dados do usuário (entidade usuario do diagrama de classes).
+     * Seguindo a LGPD (minimização), não coletamos CPF.
+     */
+    private void salvarDadosUsuario(String name, String phone, String email) {
         String usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Map<String, Object> usuarios = new HashMap<>();
         usuarios.put("nome", name);
         usuarios.put("telefone", phone);
-        usuarios.put("cpf", cpf);
+        usuarios.put("email", email);
+        usuarios.put("ativo", true);
+        usuarios.put("dataCadastro", FieldValue.serverTimestamp());
 
         FirebaseFirestore.getInstance().collection("Usuarios").document(usuarioID)
                 .set(usuarios);
