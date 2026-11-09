@@ -197,24 +197,56 @@ public class DenunciaActivity extends AppCompatActivity {
         binding.toolbarDenuncia.setNavigationOnClickListener(v -> finish());
     }
 
+    /** Tipos usados se a coleção "tipos_ocorrencia" estiver vazia ou sem conexão. */
+    private static final String[] TIPOS_PADRAO = {
+            "Violência Doméstica",
+            "Assédio",
+            "Ameaça",
+            "Discriminação Racial",
+            "LGBTfobia",
+            "Crime Cibernético - Ameaça Virtual",
+            "Crime Cibernético - Invasão de Conta",
+            "Crime Cibernético - Divulgação Indevida de Conteúdo",
+            "Outros"
+    };
+
     private void configurarDropdowns() {
-        String[] tipos = {
-                "Violência Doméstica",
-                "Assédio",
-                "Ameaça",
-                "Discriminação Racial",
-                "LGBTfobia",
-                "Crime Cibernético - Ameaça Virtual",
-                "Crime Cibernético - Invasão de Conta",
-                "Crime Cibernético - Divulgação Indevida de Conteúdo",
-                "Outros"
-        };
-        ArrayAdapter<String> adapterTipos = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, tipos);
-        binding.autoCompleteTipo.setAdapter(adapterTipos);
+        definirTipos(java.util.Arrays.asList(TIPOS_PADRAO));
+        carregarTiposDoBanco();
 
         String[] urgencias = {"Baixa", "Média", "Alta", "Urgente (Risco de Vida)"};
         ArrayAdapter<String> adapterUrgencia = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, urgencias);
         binding.autoCompleteUrgencia.setAdapter(adapterUrgencia);
+    }
+
+    private void definirTipos(List<String> tipos) {
+        ArrayAdapter<String> adapterTipos = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, tipos);
+        binding.autoCompleteTipo.setAdapter(adapterTipos);
+    }
+
+    /**
+     * Tipos de ocorrência cadastrados pelo administrador no painel
+     * (coleção "tipos_ocorrencia", somente os ativos).
+     */
+    private void carregarTiposDoBanco() {
+        db.collection("tipos_ocorrencia")
+                .whereEqualTo("ativo", true)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    List<String> tipos = new java.util.ArrayList<>();
+                    for (com.google.firebase.firestore.DocumentSnapshot doc : snapshot.getDocuments()) {
+                        String nome = doc.getString("nome");
+                        if (nome != null && !nome.trim().isEmpty()) tipos.add(nome.trim());
+                    }
+                    if (tipos.isEmpty()) return; // mantém os tipos padrão
+
+                    java.util.Collections.sort(tipos, (x, y) -> {
+                        if (x.equals("Outros")) return 1;   // "Outros" sempre por último
+                        if (y.equals("Outros")) return -1;
+                        return x.compareToIgnoreCase(y);
+                    });
+                    definirTipos(tipos);
+                });
     }
 
     private void configurarCliques() {
