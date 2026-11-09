@@ -31,11 +31,13 @@ import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.WriteBatch;
 import com.victor.ampara.databinding.ActivityDenunciaBinding;
 import com.victor.ampara.model.Denuncia;
+import com.victor.ampara.util.ImagemHelper;
 import com.victor.ampara.util.NotificationHelper;
 
 import java.util.Calendar;
@@ -52,7 +54,6 @@ public class DenunciaActivity extends AppCompatActivity {
     private Uri selectedFileUri;
     
     private FirebaseFirestore db;
-    private FirebaseStorage storage;
     private FirebaseAuth auth;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -69,7 +70,6 @@ public class DenunciaActivity extends AppCompatActivity {
             setContentView(binding.getRoot());
 
             db = FirebaseFirestore.getInstance();
-            storage = FirebaseStorage.getInstance();
             auth = FirebaseAuth.getInstance();
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -245,7 +245,6 @@ public class DenunciaActivity extends AppCompatActivity {
     private void abrirSelecionadorDeArquivos() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/*", "application/pdf"});
         pickFileLauncher.launch(Intent.createChooser(intent, "Selecionar Evidência"));
     }
 
@@ -269,7 +268,7 @@ public class DenunciaActivity extends AppCompatActivity {
         setLoading(true);
 
         if (selectedFileUri != null) {
-            fazerUploadEvidencia(tipo, dataHora, local, relato, urgencia, anonimo);
+            prepararEvidencia(tipo, dataHora, local, relato, urgencia, anonimo);
         } else {
             salvarNoFirestore(tipo, dataHora, local, relato, urgencia, anonimo, null);
         }
@@ -281,21 +280,27 @@ public class DenunciaActivity extends AppCompatActivity {
         binding.progressEnvio.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
-    private void fazerUploadEvidencia(String tipo, String dataHora, String local, String relato, String urgencia, boolean anonimo) {
-        String fileName = UUID.randomUUID().toString();
-        StorageReference ref = storage.getReference().child("evidencias/" + fileName);
-
-        ref.putFile(selectedFileUri)
-                .addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl().addOnSuccessListener(uri -> {
-                    salvarNoFirestore(tipo, dataHora, local, relato, urgencia, anonimo, uri.toString());
-                }))
-                .addOnFailureListener(e -> {
+    /**
+     * Comprime a imagem em segundo plano (redimensiona e converte para JPEG)
+     * antes de salvar. A imagem é gravada no Firestore, na coleção "evidencias".
+     */
+    private void prepararEvidencia(String tipo, String dataHora, String local, String relato, String urgencia, boolean anonimo) {
+        final Uri uri = selectedFileUri;
+        new Thread(() -> {
+            try {
+                ImagemHelper.Resultado evidencia = ImagemHelper.comprimir(
+                        this, uri, ImagemHelper.EVIDENCIA_LADO_MAX, ImagemHelper.EVIDENCIA_BYTES_MAX);
+                runOnUiThread(() -> salvarNoFirestore(tipo, dataHora, local, relato, urgencia, anonimo, evidencia));
+            } catch (Exception e) {
+                runOnUiThread(() -> {
                     setLoading(false);
-                    Snackbar.make(binding.getRoot(), "Erro no upload: " + e.getMessage(), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(binding.getRoot(), "Não foi possível processar a imagem. Tente outra foto.", Snackbar.LENGTH_LONG).show();
                 });
+            }
+        }).start();
     }
 
-    private void salvarNoFirestore(String tipo, String dataHora, String local, String relato, String urgencia, boolean anonimo, String url) {
+    private void salvarNoFirestore(String tipo, String dataHora, String local, String relato, String urgencia, boolean anonimo, ImagemHelper.Resultado evidencia) {
         // Denúncia anônima: NÃO vincula o usuário (sem usuarioId e sem e-mail).
         String userId = (!anonimo && auth.getCurrentUser() != null) ? auth.getCurrentUser().getUid() : null;
         String emailUsuario = (!anonimo && auth.getCurrentUser() != null) ? auth.getCurrentUser().getEmail() : null;
@@ -303,7 +308,6 @@ public class DenunciaActivity extends AppCompatActivity {
         String protocolo = "AMP-" + Calendar.getInstance().get(Calendar.YEAR) + "-" + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
 
         Denuncia denuncia = new Denuncia(tipo, dataHora, local, relato, anonimo, userId);
-        denuncia.setEvidenciaUrl(url);
         denuncia.setUrgencia(urgencia);
         denuncia.setProtocolo(protocolo);
 
@@ -313,9 +317,31 @@ public class DenunciaActivity extends AppCompatActivity {
             denuncia.setCidade(cidadeDetectada);
         }
 
-        db.collection("denuncias")
-                .add(denuncia)
-                .addOnSuccessListener(documentReference -> {
+        // Denúncia e evidência são gravadas juntas (em lote): ou salva tudo, ou nada.
+        WriteBatch lote = db.batch();
+        DocumentReference denunciaRef = db.collection("denuncias").document();
+
+        if (evidencia != null) {
+            DocumentReference evidenciaRef = db.collection("evidencias").document();
+            denuncia.setEvidenciaId(evidenciaRef.getId());
+
+            // Entidade "evidencia" do diagrama de classes
+            Map<String, Object> dadosEvidencia = new HashMap<>();
+            dadosEvidencia.put("denunciaId", denunciaRef.getId());
+            dadosEvidencia.put("usuarioId", userId); // null quando a denúncia é anônima
+            dadosEvidencia.put("nomeArquivo", "evidencia-" + protocolo + ".jpg");
+            dadosEvidencia.put("tipoArquivo", "image/jpeg");
+            dadosEvidencia.put("largura", evidencia.largura);
+            dadosEvidencia.put("altura", evidencia.altura);
+            dadosEvidencia.put("tamanhoBytes", evidencia.bytes);
+            dadosEvidencia.put("imagemBase64", evidencia.base64);
+            dadosEvidencia.put("dataEnvio", FieldValue.serverTimestamp());
+            lote.set(evidenciaRef, dadosEvidencia);
+        }
+        lote.set(denunciaRef, denuncia);
+
+        lote.commit()
+                .addOnSuccessListener(ok -> {
                     setLoading(false);
                     if (emailUsuario != null) {
                         solicitarEnvioEmailAutomatico(emailUsuario, protocolo, tipo);

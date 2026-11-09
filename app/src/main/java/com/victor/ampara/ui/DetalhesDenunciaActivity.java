@@ -14,12 +14,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.victor.ampara.R;
 import com.victor.ampara.model.Denuncia;
+import com.victor.ampara.util.ImagemHelper;
 
 public class DetalhesDenunciaActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private ListenerRegistration statusListener;
     private String denunciaId;
+    private String evidenciaCarregada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +79,12 @@ public class DetalhesDenunciaActivity extends AppCompatActivity {
             tvStatus.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_pending));
         }
 
-        // Carregar imagem se houver URL válida
+        // Evidência: nova (coleção "evidencias" no Firestore) ou antiga (URL do Storage)
         View layoutEvidencia = findViewById(R.id.layoutEvidencia);
-        if (denuncia.getEvidenciaUrl() != null && !denuncia.getEvidenciaUrl().isEmpty()) {
+        if (denuncia.getEvidenciaId() != null && !denuncia.getEvidenciaId().isEmpty()) {
+            layoutEvidencia.setVisibility(View.VISIBLE);
+            carregarEvidencia(denuncia.getEvidenciaId());
+        } else if (denuncia.getEvidenciaUrl() != null && !denuncia.getEvidenciaUrl().isEmpty()) {
             layoutEvidencia.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .load(denuncia.getEvidenciaUrl())
@@ -88,6 +93,24 @@ public class DetalhesDenunciaActivity extends AppCompatActivity {
         } else {
             layoutEvidencia.setVisibility(View.GONE);
         }
+    }
+
+    /** Busca a imagem uma única vez (o listener de status dispara várias vezes). */
+    private void carregarEvidencia(String evidenciaId) {
+        if (evidenciaId.equals(evidenciaCarregada)) return;
+        evidenciaCarregada = evidenciaId;
+
+        ImageView img = findViewById(R.id.imgEvidencia);
+        img.setImageResource(android.R.drawable.ic_menu_gallery);
+
+        db.collection("evidencias").document(evidenciaId).get()
+                .addOnSuccessListener(doc -> {
+                    byte[] bytes = ImagemHelper.decodificar(doc.getString("imagemBase64"));
+                    if (bytes != null && !isDestroyed()) {
+                        Glide.with(this).load(bytes).into(img);
+                    }
+                })
+                .addOnFailureListener(e -> evidenciaCarregada = null);
     }
 
     @Override

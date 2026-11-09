@@ -17,8 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.victor.ampara.R;
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
-    private FirebaseStorage storage;
     private ListenerRegistration statusNotificationListener;
 
     @Override
@@ -42,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-        storage = FirebaseStorage.getInstance();
 
         configurarCliques();
         carregarDadosUsuario();
@@ -119,13 +115,17 @@ public class MainActivity extends AppCompatActivity {
 
                             String nome = documentSnapshot.getString("nome");
                             String fotoUrl = documentSnapshot.getString("fotoUrl");
+                            byte[] foto = com.victor.ampara.util.ImagemHelper.decodificar(documentSnapshot.getString("fotoBase64"));
                             
                             if (nome != null && !nome.isEmpty()) {
                                 binding.tvUserName.setText("Olá, " + nome + "!");
                                 tvNavName.setText(nome);
                             }
                             
-                            if (fotoUrl != null && !fotoUrl.isEmpty()) {
+                            if (foto != null) {
+                                Glide.with(this).load(foto).into(binding.imgProfile);
+                                Glide.with(this).load(foto).into(imgNavProfile);
+                            } else if (fotoUrl != null && !fotoUrl.isEmpty()) {
                                 Glide.with(this).load(fotoUrl).into(binding.imgProfile);
                                 Glide.with(this).load(fotoUrl).into(imgNavProfile);
                             }

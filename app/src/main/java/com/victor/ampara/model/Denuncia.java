@@ -13,7 +13,8 @@ public class Denuncia implements Serializable {
     private String local;
     private String relato;
     private boolean anonimo;
-    private String evidenciaUrl;
+    private String evidenciaUrl; // denúncias antigas (Firebase Storage)
+    private String evidenciaId;  // documento na coleção "evidencias"
     private String usuarioId;
     private String status = "Em análise";
     private String urgencia;
@@ -61,6 +62,9 @@ public class Denuncia implements Serializable {
 
     public String getEvidenciaUrl() { return evidenciaUrl; }
     public void setEvidenciaUrl(String evidenciaUrl) { this.evidenciaUrl = evidenciaUrl; }
+
+    public String getEvidenciaId() { return evidenciaId; }
+    public void setEvidenciaId(String evidenciaId) { this.evidenciaId = evidenciaId; }
 
     public String getUsuarioId() { return usuarioId; }
     public void setUsuarioId(String usuarioId) { this.usuarioId = usuarioId; }

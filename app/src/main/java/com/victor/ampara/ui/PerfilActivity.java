@@ -15,9 +15,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.FieldValue;
 import com.victor.ampara.databinding.ActivityPerfilBinding;
+import com.victor.ampara.util.ImagemHelper;
 import com.victor.ampara.util.SessaoHelper;
 
 import java.text.SimpleDateFormat;
@@ -70,6 +70,7 @@ public class PerfilActivity extends AppCompatActivity {
                     String nome = doc.getString("nome");
                     String telefone = doc.getString("telefone");
                     String fotoUrl = doc.getString("fotoUrl");
+                    byte[] foto = ImagemHelper.decodificar(doc.getString("fotoBase64"));
                     Timestamp cadastro = doc.getTimestamp("dataCadastro");
 
                     binding.tvPerfilNome.setText(nome != null ? nome : "Usuário");
@@ -83,7 +84,9 @@ public class PerfilActivity extends AppCompatActivity {
                                 .format(user.getMetadata().getCreationTimestamp()));
                     }
 
-                    if (fotoUrl != null && !fotoUrl.isEmpty()) {
+                    if (foto != null) {
+                        Glide.with(this).load(foto).into(binding.imgPerfil);
+                    } else if (fotoUrl != null && !fotoUrl.isEmpty()) {
                         Glide.with(this).load(fotoUrl).into(binding.imgPerfil);
                     }
                 });
@@ -95,19 +98,22 @@ public class PerfilActivity extends AppCompatActivity {
         pickImageLauncher.launch(intent);
     }
 
+    /** Comprime a foto (400 px) e salva no documento do usuário, no Firestore. */
     private void enviarFoto(Uri uri) {
-        StorageReference ref = FirebaseStorage.getInstance().getReference()
-                .child("perfis/" + user.getUid() + ".jpg");
-
         Toast.makeText(this, "Atualizando foto...", Toast.LENGTH_SHORT).show();
 
-        ref.putFile(uri)
-                .addOnSuccessListener(t -> ref.getDownloadUrl().addOnSuccessListener(downloadUri ->
-                        FirebaseFirestore.getInstance().collection("Usuarios").document(user.getUid())
-                                .update("fotoUrl", downloadUri.toString())
-                                .addOnSuccessListener(a -> Toast.makeText(this, "Foto atualizada!", Toast.LENGTH_SHORT).show())
-                                .addOnFailureListener(e -> Toast.makeText(this, "Erro ao salvar a foto", Toast.LENGTH_SHORT).show())))
-                .addOnFailureListener(e -> Toast.makeText(this, "Erro no envio da foto", Toast.LENGTH_SHORT).show());
+        new Thread(() -> {
+            try {
+                ImagemHelper.Resultado foto = ImagemHelper.comprimir(
+                        this, uri, ImagemHelper.PERFIL_LADO_MAX, ImagemHelper.PERFIL_BYTES_MAX);
+                runOnUiThread(() -> FirebaseFirestore.getInstance().collection("Usuarios").document(user.getUid())
+                        .update("fotoBase64", foto.base64, "fotoUrl", FieldValue.delete())
+                        .addOnSuccessListener(a -> Toast.makeText(this, "Foto atualizada!", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(this, "Erro ao salvar a foto", Toast.LENGTH_SHORT).show()));
+            } catch (Exception e) {
+                runOnUiThread(() -> Toast.makeText(this, "Não foi possível processar a imagem", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
     }
 
     @Override
