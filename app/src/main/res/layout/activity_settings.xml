@@ -65,9 +65,51 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Ao ativar, o aplicativo mudará o nome para 'Bloco de Notas' e usará um ícone genérico na tela inicial para sua segurança."
+                        android:text="Ao ativar, o aplicativo aparece como 'Bloco de Notas', com um ícone genérico, e abre como um bloco de notas comum. Para entrar no AMPARA, digite seu PIN na nota e toque em Salvar. Exige um PIN cadastrado."
                         android:textColor="#757575"
                         android:textSize="13sp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchPin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Senha do aplicativo (PIN)"
+                        android:textColor="@color/text_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Pede um PIN de 4 a 6 números ao abrir o aplicativo e quando ele volta após 30 segundos fora. O PIN fica guardado de forma protegida somente neste celular."
+                        android:textColor="#757575"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAlterarPin"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Alterar PIN"
+                        android:textAllCaps="false"
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

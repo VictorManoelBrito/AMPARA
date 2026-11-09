@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
+        android:name=".AmparaApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,28 +19,47 @@
         android:theme="@style/Theme.Ampara" >
         <activity
             android:name=".ui.LoginActivity"
-            android:enabled="true"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Ampara" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.Ampara" />
 
+        <!-- Modo disfarçado: apenas UM destes ícones fica ativo na tela inicial -->
         <activity-alias
-            android:name=".ui.LoginActivityAlias"
-            android:enabled="false"
+            android:name=".ui.LauncherAmpara"
+            android:enabled="true"
             android:exported="true"
-            android:icon="@android:drawable/ic_menu_edit"
-            android:label="Bloco de Notas"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:targetActivity=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
+
+        <activity-alias
+            android:name=".ui.LauncherDisfarce"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:label="Bloco de Notas"
+            android:roundIcon="@android:drawable/ic_menu_edit"
+            android:targetActivity=".ui.NotasActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Bloqueio por PIN -->
+        <activity android:name=".ui.BloqueioActivity"
+            android:exported="false"
+            android:label="@string/app_name" />
+        <activity android:name=".ui.NotasActivity"
+            android:exported="false"
+            android:label="Bloco de Notas"
+            android:theme="@style/Theme.Notas" />
 
         <activity
             android:name=".ui.RegisterActivity"
