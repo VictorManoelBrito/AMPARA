@@ -1,6 +1,9 @@
 package com.victor.ampara.ui;
 
 import android.os.Bundle;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,7 +66,12 @@ public class DetalhesDenunciaActivity extends AppCompatActivity {
     private void preencherDados(Denuncia denuncia) {
         ((TextView) findViewById(R.id.tvDetalheTipo)).setText(denuncia.getTipo());
         ((TextView) findViewById(R.id.tvDetalheProtocolo)).setText("Protocolo: " + (denuncia.getProtocolo() != null ? denuncia.getProtocolo() : "N/A"));
-        ((TextView) findViewById(R.id.tvDetalheDataHora)).setText(denuncia.getDataHoraOcorrencia());
+        // Data informada pelo usuário (ocorrência) + data em que o sistema recebeu (servidor)
+        String registro = denuncia.getDataCriacao() != null
+                ? new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm", new Locale("pt", "BR")).format(denuncia.getDataCriacao())
+                : "—";
+        ((TextView) findViewById(R.id.tvDetalheDataHora)).setText("Ocorrência: " + denuncia.getDataHoraOcorrencia()
+                + "\nRegistrada no sistema em: " + registro);
         ((TextView) findViewById(R.id.tvDetalheLocal)).setText(denuncia.getLocal() != null ? denuncia.getLocal() : "Não informado");
         ((TextView) findViewById(R.id.tvDetalheRelato)).setText(denuncia.getRelato());
         ((TextView) findViewById(R.id.tvDetalheUrgencia)).setText(denuncia.getUrgencia() != null ? denuncia.getUrgencia() : "Padrão");

@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.victor.ampara.util.MovimentacaoHelper;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,7 +110,12 @@ public class PerfilActivity extends AppCompatActivity {
                         this, uri, ImagemHelper.PERFIL_LADO_MAX, ImagemHelper.PERFIL_BYTES_MAX);
                 runOnUiThread(() -> FirebaseFirestore.getInstance().collection("Usuarios").document(user.getUid())
                         .update("fotoBase64", foto.base64, "fotoUrl", FieldValue.delete())
-                        .addOnSuccessListener(a -> Toast.makeText(this, "Foto atualizada!", Toast.LENGTH_SHORT).show())
+                        .addOnSuccessListener(a -> {
+                            Toast.makeText(this, "Foto atualizada!", Toast.LENGTH_SHORT).show();
+                            MovimentacaoHelper.registrar(MovimentacaoHelper.doUsuario("perfil_atualizado",
+                                    "Atualizou a foto do perfil", "usuario", user.getUid(), user.getEmail(),
+                                    binding.tvPerfilNome.getText().toString()));
+                        })
                         .addOnFailureListener(e -> Toast.makeText(this, "Erro ao salvar a foto", Toast.LENGTH_SHORT).show()));
             } catch (Exception e) {
                 runOnUiThread(() -> Toast.makeText(this, "Não foi possível processar a imagem", Toast.LENGTH_SHORT).show());

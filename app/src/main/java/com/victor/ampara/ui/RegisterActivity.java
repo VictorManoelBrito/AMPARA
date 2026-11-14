@@ -9,6 +9,9 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.WriteBatch;
+import com.victor.ampara.util.MovimentacaoHelper;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -143,8 +146,14 @@ public class RegisterActivity extends AppCompatActivity {
         usuarios.put("ativo", true);
         usuarios.put("dataCadastro", FieldValue.serverTimestamp());
 
-        FirebaseFirestore.getInstance().collection("Usuarios").document(usuarioID)
-                .set(usuarios);
+        // Cadastro e registro de movimentação gravados juntos
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        WriteBatch lote = db.batch();
+        lote.set(db.collection("Usuarios").document(usuarioID), usuarios);
+        lote.set(db.collection(MovimentacaoHelper.COLECAO).document(),
+                MovimentacaoHelper.doUsuario("conta_criada", "Criou conta no aplicativo",
+                        "usuario", usuarioID, email, name));
+        lote.commit();
     }
 
     private void exibirSnackbar(View v, String mensagem) {

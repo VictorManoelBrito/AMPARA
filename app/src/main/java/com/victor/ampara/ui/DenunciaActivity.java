@@ -41,6 +41,8 @@ import com.victor.ampara.util.ImagemHelper;
 import com.victor.ampara.util.NotificationHelper;
 
 import java.util.Calendar;
+import com.victor.ampara.util.MovimentacaoHelper;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -450,6 +452,12 @@ public class DenunciaActivity extends AppCompatActivity {
             lote.set(evidenciaRef, dadosEvidencia);
         }
         lote.set(denunciaRef, denuncia);
+
+        // Registro de movimentação no mesmo lote. Na anônima, sem nenhum dado de quem fez.
+        lote.set(db.collection(MovimentacaoHelper.COLECAO).document(), anonimo
+                ? MovimentacaoHelper.anonima(denunciaRef.getId(), protocolo)
+                : MovimentacaoHelper.doUsuario("denuncia_registrada", "Registrou denúncia: " + tipo,
+                        "denuncia", denunciaRef.getId(), protocolo, denuncia.getNomeDenunciante()));
 
         lote.commit()
                 .addOnSuccessListener(ok -> {
