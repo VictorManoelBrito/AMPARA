@@ -1,0 +1,167 @@
+{
+ "id": "lgbtfobia",
+ "titulo": "LGBTfobia",
+ "subtitulo": "O que é, por que é crime, quais direitos estão garantidos e como denunciar.",
+ "telas": [
+  {
+   "titulo": "O que é LGBTfobia",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>LGBTfobia</b> é o preconceito, a discriminação ou a violência contra pessoas por causa da sua <b>orientação sexual</b> ou da sua <b>identidade de gênero</b>."
+    },
+    {
+     "t": "p",
+     "texto": "A sigla <b>LGBTQIA+</b> reúne lésbicas, gays, bissexuais, travestis, transexuais, queer, intersexo, assexuais e outras identidades."
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "<b>Orientação sexual:</b> por quem a pessoa sente atração (por exemplo, gays, lésbicas e bissexuais).",
+      "<b>Identidade de gênero:</b> como a pessoa se reconhece (por exemplo, mulheres e homens trans e travestis)."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "Quando o preconceito é contra pessoas gays e lésbicas, costuma ser chamado de homofobia; contra pessoas trans e travestis, de transfobia."
+    }
+   ]
+  },
+  {
+   "titulo": "É crime: a decisão do STF",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Em <b>2019</b>, o Supremo Tribunal Federal (STF) julgou a ADO 26 e o MI 4733 e decidiu que atos de <b>homofobia e transfobia</b> devem ser punidos pela <b>Lei do Racismo</b> (Lei nº 7.716/1989), até que o Congresso aprove uma lei específica."
+    },
+    {
+     "t": "p",
+     "texto": "Em 2023, o STF também reconheceu que <b>ofensas</b> homofóbicas e transfóbicas podem ser enquadradas como <b>injúria racial</b>."
+    },
+    {
+     "t": "caixa",
+     "titulo": "Na prática",
+     "texto": "Discriminar, ofender, negar atendimento ou impedir o acesso de alguém por sua orientação sexual ou identidade de gênero é crime, inafiançável e imprescritível."
+    }
+   ]
+  },
+  {
+   "titulo": "Os números",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Segundo o 20º Anuário Brasileiro de Segurança Pública, os registros de <b>racismo por homofobia ou transfobia</b> cresceram <b>35,6%</b> entre 2024 e 2025."
+    },
+    {
+     "t": "p",
+     "texto": "Mesmo assim, os dados ainda são <b>incompletos</b>: alguns estados não informam esses registros, e muitas vítimas não denunciam por medo de sofrer mais preconceito."
+    },
+    {
+     "t": "fonte",
+     "texto": "Fonte: Fórum Brasileiro de Segurança Pública, 20º Anuário Brasileiro de Segurança Pública (2026)."
+    }
+   ]
+  },
+  {
+   "titulo": "Exemplos de LGBTfobia",
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "recusar atendimento ou expulsar alguém de um local;",
+      "demitir ou deixar de contratar por causa da orientação sexual ou identidade de gênero;",
+      "xingamentos, \"piadas\" e ameaças, inclusive pela internet;",
+      "agressões físicas;",
+      "recusar-se a usar o <b>nome social</b> de uma pessoa trans de propósito, para humilhar;",
+      "expor a orientação sexual ou a identidade de alguém sem consentimento."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Direitos garantidos",
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "<b>União estável e casamento</b> entre pessoas do mesmo sexo: reconhecidos pelo STF em 2011 e garantidos nos cartórios pela Resolução nº 175/2013 do CNJ.",
+      "<b>Nome e gênero:</b> desde 2018, pessoas trans podem alterar nome e gênero diretamente no cartório, sem cirurgia ou laudo (STF, ADI 4275).",
+      "<b>Nome social:</b> uso garantido em órgãos públicos federais (Decreto nº 8.727/2016).",
+      "<b>Doação de sangue:</b> em 2020, o STF derrubou a restrição a homens que fazem sexo com homens.",
+      "<b>Lei Maria da Penha:</b> protege também mulheres lésbicas, bissexuais e trans."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "O que fazer e como apoiar",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>Se acontecer com você:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "em perigo, ligue <b>190</b>;",
+      "guarde provas: prints, vídeos, áudios e nomes de testemunhas;",
+      "registre boletim de ocorrência e denuncie pelo <b>Disque 100</b>;",
+      "procure a <b>Defensoria Pública</b> para orientação gratuita."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "<b>Para apoiar alguém:</b> respeite o nome e os pronomes que a pessoa usa, não exponha a orientação ou a identidade de ninguém e, se for seguro, intervenha ou seja testemunha."
+    },
+    {
+     "t": "caixa",
+     "titulo": "No AMPARA",
+     "texto": "Você pode registrar uma denúncia, <b>inclusive anônima</b>, acompanhar pelo protocolo e consultar a <b>Rede de Apoio</b> com os serviços da sua cidade."
+    }
+   ]
+  },
+  {
+   "titulo": "Onde buscar ajuda",
+   "blocos": [
+    {
+     "t": "contatos",
+     "itens": [
+      [
+       "190",
+       "Polícia Militar. Emergência, quando a violência está acontecendo ou há risco imediato."
+      ],
+      [
+       "180",
+       "Central de Atendimento à Mulher. Gratuita, 24 horas, todos os dias. Orienta, recebe denúncias e informa os serviços da sua cidade. WhatsApp (61) 9610-0180, e-mail central180@mulheres.gov.br e atendimento em Libras."
+      ],
+      [
+       "100",
+       "Disque Direitos Humanos. Violações contra crianças, pessoas idosas, pessoas com deficiência, população LGBTQIA+, vítimas de racismo e outros grupos."
+      ],
+      [
+       "Delegacia",
+       "Delegacia da Mulher ou qualquer delegacia: boletim de ocorrência e pedido de medida protetiva."
+      ],
+      [
+       "CREAS",
+       "Centro de Referência Especializado de Assistência Social: acolhimento e acompanhamento."
+      ],
+      [
+       "Defensoria",
+       "Defensoria Pública: orientação jurídica gratuita."
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "referencias": [
+  "BRASIL. Lei nº 7.716, de 5 de janeiro de 1989.",
+  "BRASIL. Supremo Tribunal Federal. ADO 26 e MI 4733. Julgamento em 13 de junho de 2019.",
+  "BRASIL. Supremo Tribunal Federal. ADI 4275. Julgamento em 1º de março de 2018.",
+  "BRASIL. Supremo Tribunal Federal. ADI 4277 e ADPF 132. Julgamento em 5 de maio de 2011.",
+  "CONSELHO NACIONAL DE JUSTIÇA. Resolução nº 175, de 14 de maio de 2013.",
+  "BRASIL. Decreto nº 8.727, de 28 de abril de 2016 (nome social).",
+  "FÓRUM BRASILEIRO DE SEGURANÇA PÚBLICA. 20º Anuário Brasileiro de Segurança Pública. São Paulo: FBSP, 2026."
+ ]
+}

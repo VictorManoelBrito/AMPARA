@@ -1,0 +1,285 @@
+{
+ "id": "tipos_violencia",
+ "titulo": "Tipos de violência contra a mulher",
+ "subtitulo": "O que diz a Lei Maria da Penha, como reconhecer cada forma de violência e onde buscar ajuda.",
+ "telas": [
+  {
+   "titulo": "Por que falar sobre isso",
+   "blocos": [
+    {
+     "t": "alerta",
+     "titulo": "Em perigo agora?",
+     "texto": "Ligue <b>190</b> (Polícia Militar). Se puder, vá para um lugar seguro e peça ajuda a alguém de confiança."
+    },
+    {
+     "t": "p",
+     "texto": "Muitas mulheres vivem situações de violência sem perceber que aquilo tem nome e é proibido por lei. Xingamentos, controle do celular, ameaças e a retenção do salário são tão violência quanto um tapa. Reconhecer cada forma de violência é o primeiro passo para buscar ajuda."
+    },
+    {
+     "t": "p",
+     "texto": "Os números mostram a urgência do tema:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "Em 2025, o Brasil registrou <b>1.571 feminicídios</b>, o maior número desde que o crime passou a existir na lei, em 2015. São mais de quatro mulheres mortas por dia, por serem mulheres.",
+      "No mesmo ano, <b>4.189 mulheres sobreviveram</b> a tentativas de feminicídio.",
+      "A pesquisa do DataSenado de 2025 estimou que <b>3,7 milhões de brasileiras</b> sofreram violência doméstica ou familiar naquele ano, e <b>58%</b> das que relataram violência recente conviviam com ela havia mais de um ano."
+     ]
+    },
+    {
+     "t": "fonte",
+     "texto": "Fontes: Fórum Brasileiro de Segurança Pública, 20º Anuário Brasileiro de Segurança Pública (2026); Instituto DataSenado, Pesquisa Nacional de Violência contra a Mulher (2025)."
+    }
+   ]
+  },
+  {
+   "titulo": "A Lei Maria da Penha em poucas palavras",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "A Lei nº 11.340/2006, conhecida como <b>Lei Maria da Penha</b>, protege a mulher contra a violência <b>doméstica e familiar</b>. Ela vale quando a violência é baseada no gênero e acontece:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "<b>dentro de casa</b>, entre pessoas que convivem, com ou sem parentesco;",
+      "<b>na família</b>: pai, mãe, irmão, filho, padrasto, sogro, entre outros;",
+      "<b>em uma relação de afeto</b>: marido, companheiro, namorado ou ex, <b>mesmo que nunca tenham morado juntos</b>."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "As relações citadas acima valem independentemente da orientação sexual, então a lei também protege mulheres lésbicas e bissexuais. Em 2022, o Superior Tribunal de Justiça (STJ) decidiu que ela se aplica também a mulheres trans."
+    },
+    {
+     "t": "p",
+     "texto": "O artigo 7º da lei descreve <b>cinco formas de violência</b>, que você vai conhecer nas próximas telas. Elas podem acontecer separadas ou ao mesmo tempo."
+    }
+   ]
+  },
+  {
+   "titulo": "Violência física",
+   "numero": 1,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>O que é:</b> qualquer ação que machuque o corpo ou prejudique a saúde da mulher (art. 7º, I)."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Exemplos:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "empurrar, sacudir, puxar o cabelo, dar tapas, socos ou chutes;",
+      "apertar o braço ou o pescoço, tentar sufocar;",
+      "queimar, cortar, atirar objetos;",
+      "impedir que a mulher procure atendimento médico."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "Atenção",
+     "texto": "Não precisa deixar marca para ser violência. Um empurrão também é agressão e pode ser denunciado."
+    }
+   ]
+  },
+  {
+   "titulo": "Violência psicológica",
+   "numero": 2,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>O que é:</b> qualquer conduta que cause dano emocional, diminua a autoestima ou tente controlar o que a mulher faz, pensa e decide. A lei cita ameaça, humilhação, manipulação, isolamento, vigilância constante, perseguição, chantagem e ridicularização, entre outras (art. 7º, II)."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Exemplos:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "xingar, humilhar ou fazer a mulher se sentir incapaz;",
+      "proibir de estudar, trabalhar, sair ou ver amigos e família;",
+      "vigiar o celular, as redes sociais e exigir senhas;",
+      "ameaçar machucar a mulher, os filhos ou a si mesmo para controlá-la;",
+      "fazer a mulher duvidar da própria memória ou sanidade."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "É crime",
+     "texto": "Desde 2021, causar dano emocional à mulher é crime previsto no art. 147-B do Código Penal (Lei nº 14.188/2021). Se o agressor usar inteligência artificial ou outro recurso que altere a imagem ou a voz da vítima, a pena aumenta pela metade (Lei nº 15.123/2025). Perseguir alguém de forma repetida, inclusive pela internet, também é crime (art. 147-A)."
+    }
+   ]
+  },
+  {
+   "titulo": "Violência sexual",
+   "numero": 3,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>O que é:</b> obrigar a mulher a presenciar, manter ou participar de relação sexual que ela não quer, por meio de ameaça, intimidação ou força. Também inclui impedir o uso de métodos para evitar a gravidez, forçar casamento, gravidez, aborto ou prostituição (art. 7º, III)."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Exemplos:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "forçar relações sexuais, <b>mesmo no casamento ou no namoro</b>;",
+      "obrigar a ver ou praticar atos que causam desconforto;",
+      "esconder ou proibir o anticoncepcional;",
+      "gravar ou divulgar fotos e vídeos íntimos sem autorização."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "Importante",
+     "texto": "\"Ser casado\" não dá direito a sexo sem consentimento. E divulgar cena de sexo ou nudez sem autorização da pessoa é crime (art. 218-C do Código Penal)."
+    },
+    {
+     "t": "alerta",
+     "titulo": "Depois de uma violência sexual",
+     "texto": "Procure um serviço de saúde <b>o quanto antes, de preferência em até 72 horas</b>: há medicamentos que previnem gravidez e infecções, inclusive o HIV."
+    }
+   ]
+  },
+  {
+   "titulo": "Violência patrimonial",
+   "numero": 4,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>O que é:</b> reter, tirar ou destruir objetos, documentos, instrumentos de trabalho, bens, dinheiro ou recursos da mulher, inclusive os que ela usa para as próprias necessidades (art. 7º, IV)."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Exemplos:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "pegar o salário ou o cartão e controlar todo o dinheiro;",
+      "esconder ou rasgar documentos;",
+      "quebrar o celular, roupas ou objetos de valor;",
+      "vender bens da mulher sem autorização."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Violência moral",
+   "numero": 5,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>O que é:</b> atacar a honra e a reputação da mulher por meio de <b>calúnia</b>, <b>difamação</b> ou <b>injúria</b> (art. 7º, V)."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Exemplos:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "<b>Calúnia:</b> acusar falsamente a mulher de ter cometido um crime;",
+      "<b>Difamação:</b> espalhar fatos que prejudicam a reputação dela, verdadeiros ou não;",
+      "<b>Injúria:</b> ofender a dignidade com xingamentos;",
+      "fazer isso em grupos de mensagens ou redes sociais também conta."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Medidas protetivas de urgência",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "A Lei Maria da Penha permite que a Justiça determine <b>medidas protetivas</b> para proteger a mulher, como:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "afastar o agressor de casa;",
+      "proibir que ele se aproxime ou entre em contato com a mulher, a família e as testemunhas;",
+      "suspender a posse de armas;",
+      "garantir pensão provisória."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "Desde 2023 (Lei nº 14.550), as medidas podem ser concedidas <b>mesmo sem boletim de ocorrência ou processo</b>, e valem enquanto houver risco. O pedido pode ser feito na delegacia, na Defensoria Pública ou no Ministério Público. <b>Descumprir</b> uma medida protetiva é crime."
+    }
+   ]
+  },
+  {
+   "titulo": "Onde buscar ajuda",
+   "blocos": [
+    {
+     "t": "contatos",
+     "itens": [
+      [
+       "190",
+       "Polícia Militar. Emergência, quando a violência está acontecendo ou há risco imediato."
+      ],
+      [
+       "180",
+       "Central de Atendimento à Mulher. Gratuita, 24 horas, todos os dias. Orienta, recebe denúncias e informa os serviços da sua cidade. WhatsApp (61) 9610-0180, e-mail central180@mulheres.gov.br e atendimento em Libras."
+      ],
+      [
+       "100",
+       "Disque Direitos Humanos. Violações contra crianças, pessoas idosas, pessoas com deficiência, população LGBTQIA+, vítimas de racismo e outros grupos."
+      ],
+      [
+       "Delegacia",
+       "Delegacia da Mulher ou qualquer delegacia: boletim de ocorrência e pedido de medida protetiva."
+      ],
+      [
+       "CREAS",
+       "Centro de Referência Especializado de Assistência Social: acolhimento e acompanhamento."
+      ],
+      [
+       "Defensoria",
+       "Defensoria Pública: orientação jurídica gratuita."
+      ]
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "No AMPARA",
+     "texto": "Você pode registrar uma denúncia, <b>inclusive anônima</b>, acompanhar pelo protocolo e consultar a <b>Rede de Apoio</b> com os serviços da sua cidade."
+    }
+   ]
+  },
+  {
+   "titulo": "Como ajudar alguém",
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "Ouça sem julgar e acredite no que ela conta.",
+      "Não culpe a vítima nem pergunte \"por que você não sai?\". Sair é difícil e pode ser perigoso.",
+      "Respeite o tempo dela e ofereça ajuda prática: guardar documentos, acompanhar até um serviço, emprestar o celular.",
+      "Não confronte o agressor: isso pode aumentar o risco.",
+      "Se presenciar uma agressão, ligue <b>190</b>. Para orientação ou denúncia, ligue <b>180</b>."
+     ]
+    }
+   ]
+  }
+ ],
+ "referencias": [
+  "BRASIL. Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha).",
+  "BRASIL. Lei nº 14.188, de 28 de julho de 2021 (crime de violência psicológica contra a mulher).",
+  "BRASIL. Lei nº 15.123, de 24 de abril de 2025 (aumento de pena na violência psicológica com uso de inteligência artificial).",
+  "BRASIL. Lei nº 14.132, de 31 de março de 2021 (crime de perseguição).",
+  "BRASIL. Lei nº 14.550, de 19 de abril de 2023 (medidas protetivas de urgência).",
+  "BRASIL. Decreto-Lei nº 2.848, de 7 de dezembro de 1940 (Código Penal). Arts. 147-A, 147-B e 218-C.",
+  "FÓRUM BRASILEIRO DE SEGURANÇA PÚBLICA. 20º Anuário Brasileiro de Segurança Pública. São Paulo: FBSP, 2026.",
+  "SENADO FEDERAL. Instituto de Pesquisa DataSenado. Pesquisa Nacional de Violência contra a Mulher. Brasília, 2025.",
+  "MINISTÉRIO DAS MULHERES. Central de Atendimento à Mulher – Ligue 180. Disponível em: gov.br/mulheres."
+ ]
+}

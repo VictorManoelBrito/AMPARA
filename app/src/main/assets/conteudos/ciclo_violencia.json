@@ -1,0 +1,239 @@
+{
+ "id": "ciclo_violencia",
+ "titulo": "Ciclo da violência",
+ "subtitulo": "Por que a violência costuma se repetir, como reconhecer cada fase e como se proteger.",
+ "telas": [
+  {
+   "titulo": "O que é o ciclo da violência",
+   "blocos": [
+    {
+     "t": "alerta",
+     "titulo": "Em perigo agora?",
+     "texto": "Ligue <b>190</b> (Polícia Militar). Se puder, vá para um lugar seguro e peça ajuda a alguém de confiança."
+    },
+    {
+     "t": "p",
+     "texto": "Em muitos relacionamentos abusivos, a violência não acontece o tempo todo. Ela segue um <b>padrão que se repete</b>, com momentos de agressão e momentos de calma e carinho. Esse padrão foi descrito pela psicóloga norte-americana <b>Lenore Walker</b>, em 1979, e é usado até hoje por serviços de atendimento à mulher no Brasil."
+    },
+    {
+     "t": "p",
+     "texto": "O ciclo tem <b>três fases</b>. Com o tempo, ele tende a girar mais rápido: a fase de calma fica mais curta e as agressões ficam mais frequentes e mais graves."
+    },
+    {
+     "t": "caixa",
+     "titulo": "Um retrato do problema",
+     "texto": "Na pesquisa do DataSenado de 2025, <b>58%</b> das mulheres que relataram violência doméstica recente disseram que sofriam essa violência <b>havia mais de um ano</b>."
+    },
+    {
+     "t": "fonte",
+     "texto": "Fonte: Instituto DataSenado, Pesquisa Nacional de Violência contra a Mulher (2025)."
+    }
+   ]
+  },
+  {
+   "titulo": "Fase 1: aumento da tensão",
+   "numero": 1,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "O agressor fica irritado por coisas pequenas, tem acessos de raiva, humilha, faz ameaças e pode quebrar objetos."
+    },
+    {
+     "t": "p",
+     "texto": "<b>O que a mulher costuma sentir e fazer:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "tenta acalmar o agressor e evitar qualquer coisa que o \"provoque\";",
+      "sente que precisa \"pisar em ovos\";",
+      "sente medo, ansiedade e tristeza;",
+      "se culpa e esconde a situação de amigos e da família."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "Lembre-se",
+     "texto": "A culpa nunca é da vítima. Nenhum comportamento justifica uma agressão."
+    }
+   ]
+  },
+  {
+   "titulo": "Fase 2: ato de violência",
+   "numero": 2,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "A tensão acumulada explode em agressão: verbal, física, psicológica, moral ou patrimonial. É a fase de <b>maior risco</b>."
+    },
+    {
+     "t": "p",
+     "texto": "<b>O que a mulher costuma sentir e fazer:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "medo, confusão, vergonha e sensação de impotência;",
+      "muitas vezes, é neste momento que ela busca ajuda, sai de casa ou pensa em denunciar."
+     ]
+    },
+    {
+     "t": "alerta",
+     "titulo": "Se a violência está acontecendo",
+     "texto": "Ligue <b>190</b>. Saia de cômodos com objetos perigosos (como a cozinha) e procure um lugar com saída."
+    }
+   ]
+  },
+  {
+   "titulo": "Fase 3: arrependimento e carinho",
+   "numero": 3,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Também chamada de \"lua de mel\". O agressor pede desculpas, chora, dá presentes, promete que vai mudar e culpa outros fatores, como a bebida, o trabalho ou o estresse."
+    },
+    {
+     "t": "p",
+     "texto": "<b>O que a mulher costuma sentir:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "esperança de que a pessoa realmente mude;",
+      "confusão, porque o agressor também tem momentos carinhosos;",
+      "pressão da família, dos filhos ou da religião para manter a relação."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "Depois de um tempo, a tensão volta a crescer, e o ciclo recomeça."
+    }
+   ]
+  },
+  {
+   "titulo": "Por que é difícil sair",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Muita gente pergunta \"por que ela não vai embora?\". A resposta é que sair de uma relação violenta é difícil e pode ser perigoso. Alguns motivos:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "<b>medo</b> de que o agressor cumpra as ameaças;",
+      "<b>dependência financeira</b> e falta de lugar para morar;",
+      "preocupação com os <b>filhos</b>;",
+      "<b>isolamento</b>: o agressor afastou a mulher de amigos e família;",
+      "<b>esperança</b> de que a pessoa mude e vergonha de expor a situação."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "Importante",
+     "texto": "O momento da separação é um dos mais perigosos. Por isso, o ideal é planejar a saída com o apoio da rede de atendimento."
+    }
+   ]
+  },
+  {
+   "titulo": "Sinais de alto risco",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Alguns sinais indicam que a violência pode ficar muito grave. Fique atenta se o agressor:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "já ameaçou matar a mulher, os filhos ou se matar;",
+      "tem acesso a arma de fogo;",
+      "já tentou enforcar ou sufocar;",
+      "sente ciúme excessivo, persegue e controla tudo;",
+      "está agredindo com mais frequência e mais força;",
+      "descumpriu uma medida protetiva;",
+      "não aceita a separação."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "Desde 2021 (Lei nº 14.149), polícias e a Justiça usam o <b>Formulário Nacional de Avaliação de Risco</b>, com perguntas sobre esses sinais, para decidir a proteção necessária."
+    },
+    {
+     "t": "alerta",
+     "titulo": "Se você reconhece esses sinais",
+     "texto": "Procure ajuda agora: <b>190</b> em emergência, <b>180</b> para orientação."
+    }
+   ]
+  },
+  {
+   "titulo": "Plano de segurança",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Um plano de segurança ajuda a agir rápido em uma situação de perigo:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "combine com alguém de confiança um <b>sinal ou palavra</b> que signifique \"preciso de ajuda\";",
+      "deixe <b>documentos</b>, cópias, chaves, remédios e algum dinheiro em local seguro ou com alguém de confiança;",
+      "memorize os números <b>190</b> e <b>180</b> e de uma pessoa próxima;",
+      "pense em <b>lugares seguros</b> para onde ir;",
+      "ensine os filhos a pedir ajuda e a ligar para o 190;",
+      "proteja o celular: no AMPARA, ative o <b>PIN</b> e, se precisar, o <b>modo disfarce</b>."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Como quebrar o ciclo",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Reconhecer o ciclo é o primeiro passo. O segundo é <b>não enfrentar sozinha</b>. A rede de atendimento pode orientar, acolher e garantir medidas protetivas."
+    },
+    {
+     "t": "contatos",
+     "itens": [
+      [
+       "190",
+       "Polícia Militar. Emergência, quando a violência está acontecendo ou há risco imediato."
+      ],
+      [
+       "180",
+       "Central de Atendimento à Mulher. Gratuita, 24 horas, todos os dias. Orienta, recebe denúncias e informa os serviços da sua cidade. WhatsApp (61) 9610-0180, e-mail central180@mulheres.gov.br e atendimento em Libras."
+      ],
+      [
+       "100",
+       "Disque Direitos Humanos. Violações contra crianças, pessoas idosas, pessoas com deficiência, população LGBTQIA+, vítimas de racismo e outros grupos."
+      ],
+      [
+       "Delegacia",
+       "Delegacia da Mulher ou qualquer delegacia: boletim de ocorrência e pedido de medida protetiva."
+      ],
+      [
+       "CREAS",
+       "Centro de Referência Especializado de Assistência Social: acolhimento e acompanhamento."
+      ],
+      [
+       "Defensoria",
+       "Defensoria Pública: orientação jurídica gratuita."
+      ]
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "No AMPARA",
+     "texto": "Você pode registrar uma denúncia, <b>inclusive anônima</b>, acompanhar pelo protocolo e consultar a <b>Rede de Apoio</b> com os serviços da sua cidade."
+    }
+   ]
+  }
+ ],
+ "referencias": [
+  "BRASIL. Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha).",
+  "BRASIL. Lei nº 14.149, de 5 de maio de 2021 (Formulário Nacional de Avaliação de Risco).",
+  "WALKER, Lenore E. The Battered Woman. New York: Harper & Row, 1979.",
+  "INSTITUTO MARIA DA PENHA. Ciclo da violência. Disponível em: institutomariadapenha.org.br.",
+  "SENADO FEDERAL. Instituto de Pesquisa DataSenado. Pesquisa Nacional de Violência contra a Mulher. Brasília, 2025.",
+  "MINISTÉRIO DAS MULHERES. Central de Atendimento à Mulher – Ligue 180. Disponível em: gov.br/mulheres."
+ ]
+}

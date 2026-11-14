@@ -19,8 +19,7 @@ import java.util.Map;
 
 /**
  * Tela de Quiz (3.1.11): lista de temas com o progresso do usuário em cada um
- * (melhor pontuação), progresso geral e medalhas. Também dá acesso às
- * autoavaliações de Sim/Não, que não contam pontos.
+ * (melhor pontuação), progresso geral e medalhas.
  */
 public class QuizSelectionActivity extends AppCompatActivity {
 
@@ -43,10 +42,6 @@ public class QuizSelectionActivity extends AppCompatActivity {
         });
         binding.rvTemasQuiz.setLayoutManager(new LinearLayoutManager(this));
         binding.rvTemasQuiz.setAdapter(adapter);
-
-        // Autoavaliações (Sim/Não)
-        binding.cardQuizRisco.setOnClickListener(v -> iniciarAutoavaliacao("risco"));
-        binding.cardQuizCiclo.setOnClickListener(v -> iniciarAutoavaliacao("ciclo"));
     }
 
     @Override
@@ -102,11 +97,5 @@ public class QuizSelectionActivity extends AppCompatActivity {
         binding.tvProgressoGeral.setText(percentual + "%");
         binding.tvResumoProgresso.setText(realizados + " de " + temas.size() + " temas realizados • "
                 + medalhas + (medalhas == 1 ? " medalha" : " medalhas"));
-    }
-
-    private void iniciarAutoavaliacao(String tema) {
-        Intent intent = new Intent(this, QuizActivity.class);
-        intent.putExtra("TEMA_QUIZ", tema);
-        startActivity(intent);
     }
 }

@@ -46,6 +46,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBaixarTudo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Baixar todos os conteúdos (PDF)"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/primary_ampara"
+                app:icon="@android:drawable/stat_sys_download"
+                app:iconGravity="textStart" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="Um arquivo único com os 7 temas. Funciona sem internet."
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

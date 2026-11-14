@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * Módulo educativo (modulo_educativo no diagrama de classes).
  * Conteúdos informativos e legislações exibidos no app.
+ * O texto completo de cada conteúdo educativo fica em assets/conteudos/{id}.json
+ * (dividido em telas) e o PDF correspondente em assets/conteudos/pdf/{id}.pdf.
  * Para incluir um novo tópico, basta adicioná-lo em uma das listas abaixo.
  */
 public final class ConteudoEducativo {
@@ -15,11 +17,18 @@ public final class ConteudoEducativo {
     }
 
     public static class Topico implements Serializable {
+        /** Nome do arquivo em assets/conteudos (sem extensão). Nulo nas leis. */
+        public final String id;
         public final String titulo;
         public final String resumo;
         public final String texto;
 
         public Topico(String titulo, String resumo, String texto) {
+            this(null, titulo, resumo, texto);
+        }
+
+        public Topico(String id, String titulo, String resumo, String texto) {
+            this.id = id;
             this.titulo = titulo;
             this.resumo = resumo;
             this.texto = texto;
@@ -32,6 +41,7 @@ public final class ConteudoEducativo {
     public static List<Topico> conteudos() {
         return Arrays.asList(
                 new Topico(
+                        "tipos_violencia",
                         "Tipos de violência contra a mulher",
                         "As 5 formas previstas na Lei Maria da Penha.",
                         "A violência contra a mulher não é apenas física. A Lei Maria da Penha (art. 7º) reconhece cinco formas:\n\n"
@@ -41,6 +51,7 @@ public final class ConteudoEducativo {
                                 + "• Patrimonial: reter, subtrair ou destruir objetos, documentos, instrumentos de trabalho, bens ou dinheiro.\n\n"
                                 + "• Moral: calúnia, difamação ou injúria."),
                 new Topico(
+                        "ciclo_violencia",
                         "Ciclo da violência",
                         "Entenda as fases que costumam se repetir.",
                         "A violência em relacionamentos costuma seguir um ciclo que se repete:\n\n"
@@ -49,6 +60,7 @@ public final class ConteudoEducativo {
                                 + "3. Arrependimento (\"lua de mel\"): o agressor pede desculpas, faz promessas e demonstra carinho, até que a tensão volta.\n\n"
                                 + "Com o tempo, os intervalos ficam menores e as agressões mais graves. Reconhecer o ciclo é o primeiro passo para quebrá-lo."),
                 new Topico(
+                        "racismo",
                         "Racismo e injúria racial",
                         "O que são e por que ambos são crime.",
                         "Racismo é a discriminação ou o preconceito por raça, cor, etnia, religião ou procedência nacional, como impedir alguém de entrar em um local, de ser contratado ou atendido.\n\n"
@@ -56,12 +68,14 @@ public final class ConteudoEducativo {
                                 + "Desde a Lei nº 14.532/2023, a injúria racial foi equiparada ao crime de racismo (Lei nº 7.716/1989). Os dois são inafiançáveis e imprescritíveis, como prevê a Constituição Federal (art. 5º, XLII).\n\n"
                                 + "Ofensas feitas pela internet também são crime e podem ser denunciadas."),
                 new Topico(
+                        "lgbtfobia",
                         "LGBTfobia",
                         "Discriminação contra pessoas LGBTQIA+ é crime.",
                         "LGBTfobia é o preconceito, a discriminação ou a violência contra pessoas lésbicas, gays, bissexuais, travestis, transexuais, queer, intersexo e outras identidades.\n\n"
                                 + "Em 2019, o Supremo Tribunal Federal (ADO 26 e MI 4733) decidiu que atos de homofobia e transfobia devem ser enquadrados na Lei do Racismo (Lei nº 7.716/1989), até que exista uma lei específica.\n\n"
                                 + "Exemplos: recusar atendimento, ofender, ameaçar ou agredir alguém por sua orientação sexual ou identidade de gênero."),
                 new Topico(
+                        "crimes_ciberneticos",
                         "Crimes cibernéticos",
                         "Ameaças virtuais, invasão de conta e exposição.",
                         "A internet não é terra sem lei. Alguns crimes comuns:\n\n"
@@ -71,6 +85,7 @@ public final class ConteudoEducativo {
                                 + "• Ameaças e ofensas por mensagens ou redes sociais.\n\n"
                                 + "O que fazer: guarde prints com data e hora, copie os links (URLs) e o perfil do autor, não apague as conversas e denuncie. Ative a verificação em duas etapas nas suas contas."),
                 new Topico(
+                        "como_denunciar",
                         "Como fazer uma denúncia",
                         "Canais disponíveis e o que informar.",
                         "Você pode denunciar de várias formas:\n\n"
@@ -81,6 +96,7 @@ public final class ConteudoEducativo {
                                 + "• Delegacia, especialmente a Delegacia da Mulher, para registrar boletim de ocorrência e pedir medidas protetivas.\n\n"
                                 + "Informe o que aconteceu, quando, onde e quem estava envolvido. Fotos, prints e mensagens ajudam como evidência."),
                 new Topico(
+                        "buscar_ajuda",
                         "Como buscar ajuda",
                         "Onde encontrar acolhimento e orientação.",
                         "Você não está sozinha(o). Além da denúncia, existem serviços de acolhimento:\n\n"

@@ -68,9 +68,6 @@
         <activity android:name=".ui.MainActivity"
             android:exported="false"
             android:label="Ampara - Dashboard" />
-        <activity android:name=".ui.QuizActivity"
-            android:exported="false"
-            android:label="Quiz" />
         <activity android:name=".ui.QuizSelectionActivity"
             android:exported="false"
             android:label="Temas do Quiz" />
@@ -101,6 +98,9 @@
         <activity android:name=".ui.DetalhesInstituicaoActivity"
             android:exported="false"
             android:label="Detalhes da Instituição" />
+        <activity android:name=".ui.TopicoActivity"
+            android:exported="false"
+            android:label="Conteúdo educativo" />
         <activity android:name=".ui.LeituraActivity"
             android:exported="false"
             android:label="Leitura" />

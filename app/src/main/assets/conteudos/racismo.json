@@ -1,0 +1,196 @@
+{
+ "id": "racismo",
+ "titulo": "Racismo e injúria racial",
+ "subtitulo": "O que são, o que diz a lei, como agir e onde denunciar.",
+ "telas": [
+  {
+   "titulo": "Por que falar sobre isso",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "O racismo é uma das formas de violência mais presentes no Brasil. Ele aparece em ofensas, em portas fechadas e também em desigualdades que se repetem há gerações."
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "Em 2025, os boletins de ocorrência por <b>racismo</b> somaram <b>30.743</b> casos, alta de 13% em relação a 2024.",
+      "Os registros de <b>injúria racial</b> chegaram a <b>21.443</b>, alta de 9,2%.",
+      "Pessoas negras foram <b>79,7%</b> das vítimas de mortes violentas intencionais no país em 2025."
+     ]
+    },
+    {
+     "t": "fonte",
+     "texto": "Fonte: Fórum Brasileiro de Segurança Pública, 20º Anuário Brasileiro de Segurança Pública (2026)."
+    },
+    {
+     "t": "p",
+     "texto": "Esses números são apenas os casos registrados. Muitas pessoas não denunciam por medo, descrença ou por não saber que aquilo é crime."
+    }
+   ]
+  },
+  {
+   "titulo": "O que é racismo",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>Racismo</b> é discriminar ou tratar alguém de forma desigual por causa de <b>raça, cor, etnia, religião ou procedência nacional</b>. A Lei nº 7.716/1989 define esses crimes."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Exemplos:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "recusar atendimento em loja, restaurante, hotel ou serviço público;",
+      "impedir a entrada em prédios, clubes ou estabelecimentos;",
+      "negar emprego ou promoção por causa da cor da pele;",
+      "impedir a matrícula em escola;",
+      "fazer ou divulgar propaganda racista, inclusive na internet."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "Racismo estrutural",
+     "texto": "Além dos atos individuais, o racismo também está na estrutura da sociedade, nas desigualdades de renda, educação, saúde e segurança que atingem mais a população negra."
+    }
+   ]
+  },
+  {
+   "titulo": "O que é injúria racial",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>Injúria racial</b> é ofender a dignidade de uma pessoa usando elementos de <b>raça, cor, etnia ou procedência nacional</b>."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Exemplos:</b>"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "xingamentos e apelidos ligados à cor da pele ou ao cabelo;",
+      "comparar uma pessoa a animais;",
+      "\"piadas\" e \"brincadeiras\" racistas;",
+      "ofensas em redes sociais, jogos on-line ou grupos de mensagens."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "O que mudou em 2023",
+     "texto": "A Lei nº 14.532/2023 equiparou a injúria racial ao racismo (art. 2º-A da Lei nº 7.716/1989), com pena de <b>2 a 5 anos de reclusão</b> e multa. A pena aumenta quando o crime é cometido em tom de \"brincadeira\" ou diversão (o chamado racismo recreativo)."
+    },
+    {
+     "t": "p",
+     "texto": "Os dois crimes são <b>inafiançáveis e imprescritíveis</b>, como determina a Constituição Federal (art. 5º, XLII)."
+    }
+   ]
+  },
+  {
+   "titulo": "Intolerância religiosa",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "A Lei nº 7.716/1989 também protege a <b>religião</b>. Discriminar alguém por sua fé é crime."
+    },
+    {
+     "t": "p",
+     "texto": "As religiões de matriz africana, como o candomblé e a umbanda, são as mais atingidas. Exemplos de intolerância:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "ataques a terreiros e templos;",
+      "ofensas por causa de roupas, guias e símbolos religiosos;",
+      "impedir que alguém pratique sua fé ou expulsar de locais por causa dela."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "A Constituição garante a liberdade de crença e a proteção aos locais de culto (art. 5º, VI)."
+    }
+   ]
+  },
+  {
+   "titulo": "O que fazer se acontecer com você",
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "Se estiver em perigo ou o crime estiver acontecendo, ligue <b>190</b>. Racismo e injúria racial permitem prisão em flagrante.",
+      "Anote <b>nomes de testemunhas</b>, data, hora e local.",
+      "Guarde provas: <b>vídeos, áudios e prints</b> com a data e o endereço da página.",
+      "Registre um <b>boletim de ocorrência</b>. Algumas cidades têm delegacias especializadas em crimes raciais e de intolerância.",
+      "Você também pode denunciar pelo <b>Disque 100</b> e procurar a <b>Defensoria Pública</b> ou o <b>Ministério Público</b>."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "No AMPARA",
+     "texto": "Você pode registrar uma denúncia, <b>inclusive anônima</b>, acompanhar pelo protocolo e consultar a <b>Rede de Apoio</b> com os serviços da sua cidade."
+    }
+   ]
+  },
+  {
+   "titulo": "Direitos e políticas de igualdade",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "O <b>Estatuto da Igualdade Racial</b> (Lei nº 12.288/2010) garante à população negra igualdade de oportunidades e prevê políticas para reduzir desigualdades em áreas como saúde, educação, trabalho, moradia e cultura."
+    },
+    {
+     "t": "p",
+     "texto": "Também existem as <b>cotas</b> em universidades e concursos públicos, que reservam vagas para pessoas negras."
+    },
+    {
+     "t": "caixa",
+     "titulo": "Como ser antirracista",
+     "texto": "Não se cale diante de uma ofensa racista, apoie e acolha quem foi vítima, aceite ser testemunha, questione \"piadas\" e procure aprender sobre a história e a cultura afro-brasileira."
+    }
+   ]
+  },
+  {
+   "titulo": "Onde buscar ajuda",
+   "blocos": [
+    {
+     "t": "contatos",
+     "itens": [
+      [
+       "190",
+       "Polícia Militar. Emergência, quando a violência está acontecendo ou há risco imediato."
+      ],
+      [
+       "180",
+       "Central de Atendimento à Mulher. Gratuita, 24 horas, todos os dias. Orienta, recebe denúncias e informa os serviços da sua cidade. WhatsApp (61) 9610-0180, e-mail central180@mulheres.gov.br e atendimento em Libras."
+      ],
+      [
+       "100",
+       "Disque Direitos Humanos. Violações contra crianças, pessoas idosas, pessoas com deficiência, população LGBTQIA+, vítimas de racismo e outros grupos."
+      ],
+      [
+       "Delegacia",
+       "Delegacia da Mulher ou qualquer delegacia: boletim de ocorrência e pedido de medida protetiva."
+      ],
+      [
+       "CREAS",
+       "Centro de Referência Especializado de Assistência Social: acolhimento e acompanhamento."
+      ],
+      [
+       "Defensoria",
+       "Defensoria Pública: orientação jurídica gratuita."
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "referencias": [
+  "BRASIL. Constituição da República Federativa do Brasil de 1988, art. 5º, VI e XLII.",
+  "BRASIL. Lei nº 7.716, de 5 de janeiro de 1989 (crimes resultantes de preconceito de raça ou de cor).",
+  "BRASIL. Lei nº 14.532, de 11 de janeiro de 2023 (equipara a injúria racial ao crime de racismo).",
+  "BRASIL. Lei nº 12.288, de 20 de julho de 2010 (Estatuto da Igualdade Racial).",
+  "FÓRUM BRASILEIRO DE SEGURANÇA PÚBLICA. 20º Anuário Brasileiro de Segurança Pública. São Paulo: FBSP, 2026.",
+  "MINISTÉRIO DOS DIREITOS HUMANOS E DA CIDADANIA. Disque 100. Disponível em: gov.br/mdh."
+ ]
+}

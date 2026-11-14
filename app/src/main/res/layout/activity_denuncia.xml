@@ -189,6 +189,66 @@
                         android:textSize="12sp"
                         android:visibility="gone" />
 
+                    <!-- Contato de confiança: aparece só na denúncia anônima -->
+                    <LinearLayout
+                        android:id="@+id/layoutContatoConfianca"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Contato de confiança (opcional)"
+                            android:textColor="#1C1B1F"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Se quiser receber retorno da equipe, deixe um contato. Pode ser o seu ou de uma pessoa de confiança (familiar, amiga, vizinha). Prefira um número que o agressor não tenha acesso. Seu nome e seus dados de cadastro não serão salvos nesta denúncia."
+                            android:textColor="#49454F"
+                            android:textSize="13sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilContatoNome"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:hint="Nome de quem vai atender (opcional)"
+                            app:boxStrokeColor="@color/primary_ampara"
+                            app:hintTextColor="@color/primary_ampara">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editContatoNome"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName|textCapWords" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilContatoTelefone"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:hint="Telefone de contato com DDD"
+                            app:boxStrokeColor="@color/primary_ampara"
+                            app:hintTextColor="@color/primary_ampara">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editContatoTelefone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

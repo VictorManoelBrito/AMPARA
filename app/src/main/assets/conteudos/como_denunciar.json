@@ -1,0 +1,177 @@
+{
+ "id": "como_denunciar",
+ "titulo": "Como fazer uma denúncia",
+ "subtitulo": "Os canais disponíveis, o que informar, quais provas ajudam e o que acontece depois.",
+ "telas": [
+  {
+   "titulo": "Por que denunciar",
+   "blocos": [
+    {
+     "t": "alerta",
+     "titulo": "Em perigo agora?",
+     "texto": "Ligue <b>190</b> (Polícia Militar). Se puder, vá para um lugar seguro e peça ajuda a alguém de confiança."
+    },
+    {
+     "t": "p",
+     "texto": "Denunciar é um direito. A denúncia pode <b>interromper a violência</b>, dar acesso a <b>medidas protetivas</b> e ajudar o poder público a entender onde a violência acontece para criar políticas de proteção."
+    },
+    {
+     "t": "p",
+     "texto": "Você pode denunciar o que aconteceu com você ou o que você <b>presenciou</b> ou sabe que está acontecendo com outra pessoa."
+    },
+    {
+     "t": "caixa",
+     "titulo": "Quem busca ajuda",
+     "texto": "Na pesquisa do DataSenado de 2025, entre as mulheres que sofreram violência, <b>28%</b> denunciaram em uma Delegacia da Mulher e <b>11%</b> ligaram para o 180."
+    }
+   ]
+  },
+  {
+   "titulo": "Canais de denúncia",
+   "blocos": [
+    {
+     "t": "contatos",
+     "itens": [
+      [
+       "190",
+       "Polícia Militar. Emergência, quando a violência está acontecendo ou há risco imediato."
+      ],
+      [
+       "180",
+       "Central de Atendimento à Mulher. Gratuita, 24 horas, todos os dias. Orienta, recebe denúncias e informa os serviços da sua cidade. WhatsApp (61) 9610-0180, e-mail central180@mulheres.gov.br e atendimento em Libras."
+      ],
+      [
+       "100",
+       "Disque Direitos Humanos. Violações contra crianças, pessoas idosas, pessoas com deficiência, população LGBTQIA+, vítimas de racismo e outros grupos."
+      ],
+      [
+       "Delegacia",
+       "Delegacia da Mulher ou qualquer delegacia: boletim de ocorrência e pedido de medida protetiva."
+      ],
+      [
+       "CREAS",
+       "Centro de Referência Especializado de Assistência Social: acolhimento e acompanhamento."
+      ],
+      [
+       "Defensoria",
+       "Defensoria Pública: orientação jurídica gratuita."
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "Em vários estados, alguns boletins de ocorrência também podem ser feitos pela internet, na <b>delegacia eletrônica</b> da Polícia Civil. Para crianças e adolescentes, também é possível procurar o <b>Conselho Tutelar</b>."
+    }
+   ]
+  },
+  {
+   "titulo": "Anônima ou identificada",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "<b>Denúncia identificada:</b> você informa quem é. A equipe pode entrar em contato, pedir mais informações e dar retorno. No AMPARA, você acompanha o andamento em \"Minhas denúncias\"."
+    },
+    {
+     "t": "p",
+     "texto": "<b>Denúncia anônima:</b> ninguém fica sabendo quem denunciou. No AMPARA, seu nome e seus dados não são salvos, e o acompanhamento é feito pelo <b>protocolo</b>. Se quiser retorno, você pode deixar um <b>contato de confiança</b>, que pode ser o seu ou o de outra pessoa."
+    },
+    {
+     "t": "caixa",
+     "titulo": "Qual escolher?",
+     "texto": "Se você estiver em segurança e quiser acompanhar o caso de perto, a identificada facilita o contato. Se tiver medo de ser identificada, a anônima é um caminho seguro."
+    }
+   ]
+  },
+  {
+   "titulo": "O que informar",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Quanto mais detalhes, mais fácil é agir. Procure informar:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "<b>o que</b> aconteceu;",
+      "<b>quando</b> (data e hora aproximadas) e se acontece com frequência;",
+      "<b>onde</b> (endereço, bairro e cidade);",
+      "<b>quem</b> é o agressor e qual a relação com a vítima;",
+      "se há <b>armas</b>, ameaças ou risco imediato;",
+      "se há <b>crianças</b>, pessoas idosas ou com deficiência envolvidas;",
+      "se alguém <b>presenciou</b>."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Provas que ajudam",
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "fotos de lesões e de objetos quebrados;",
+      "prints de mensagens, com data e hora;",
+      "áudios e vídeos;",
+      "laudos e atendimentos médicos;",
+      "nomes e contatos de testemunhas."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "Na delegacia, a polícia pode encaminhar a vítima para o <b>exame de corpo de delito</b>, que registra as lesões."
+    },
+    {
+     "t": "alerta",
+     "titulo": "Em caso de violência sexual",
+     "texto": "Procure um serviço de saúde <b>o quanto antes, de preferência em até 72 horas</b>, para prevenir gravidez e infecções. Você pode ser atendida mesmo sem ter feito boletim de ocorrência."
+    }
+   ]
+  },
+  {
+   "titulo": "Depois da denúncia",
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "Guarde o <b>número do protocolo</b> ou do boletim de ocorrência.",
+      "Se você pediu <b>medida protetiva</b>, o juiz deve decidir em até <b>48 horas</b> (Lei Maria da Penha, art. 18).",
+      "A mulher em situação de violência tem direito a ser atendida, preferencialmente, por <b>policiais e servidoras mulheres</b> (art. 10-A).",
+      "Você pode ser chamada para dar mais informações."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Denunciando pelo AMPARA",
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "Na tela inicial, toque em <b>Registrar denúncia</b>.",
+      "Escolha o <b>tipo de ocorrência</b>, a data e a hora.",
+      "Confirme o <b>local</b>: o app sugere o bairro e a cidade, nunca o endereço exato.",
+      "Escreva o <b>relato</b> e, se quiser, anexe uma <b>foto</b>.",
+      "Escolha se a denúncia será <b>anônima</b>.",
+      "Toque em <b>Enviar</b> e anote o <b>protocolo</b>."
+     ]
+    },
+    {
+     "t": "p",
+     "texto": "O status passa por <b>Em análise</b>, <b>Em andamento</b> (encaminhada à rede de proteção) e <b>Concluída</b>."
+    },
+    {
+     "t": "caixa",
+     "titulo": "Importante",
+     "texto": "O AMPARA não substitui os canais de emergência. Em perigo, ligue <b>190</b>."
+    }
+   ]
+  }
+ ],
+ "referencias": [
+  "BRASIL. Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha).",
+  "BRASIL. Lei nº 13.505, de 8 de novembro de 2017 (atendimento policial à mulher).",
+  "SENADO FEDERAL. Instituto de Pesquisa DataSenado. Pesquisa Nacional de Violência contra a Mulher. Brasília, 2025.",
+  "MINISTÉRIO DAS MULHERES. Central de Atendimento à Mulher – Ligue 180. Disponível em: gov.br/mulheres.",
+  "MINISTÉRIO DOS DIREITOS HUMANOS E DA CIDADANIA. Disque 100. Disponível em: gov.br/mdh."
+ ]
+}

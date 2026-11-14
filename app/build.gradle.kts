@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.location)
     implementation(libs.glide)
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
     
     // Firebase - Versões gerenciadas pelo libs.versions.toml
     implementation(platform(libs.firebase.bom))

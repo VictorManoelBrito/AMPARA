@@ -21,6 +21,15 @@ public class Denuncia implements Serializable {
     private String protocolo;
     private String bairro;
     private String cidade;
+
+    // Denúncia identificada: dados do denunciante no momento do registro
+    private String nomeDenunciante;
+    private String telefoneDenunciante;
+    private String emailDenunciante;
+
+    // Denúncia anônima: único contato salvo (opcional), da própria pessoa ou de terceiro
+    private String contatoConfiancaNome;
+    private String contatoConfiancaTelefone;
     
     @ServerTimestamp
     private Date dataCriacao;
@@ -83,4 +92,15 @@ public class Denuncia implements Serializable {
 
     public Date getDataCriacao() { return dataCriacao; }
     public void setDataCriacao(Date dataCriacao) { this.dataCriacao = dataCriacao; }
+
+    public String getNomeDenunciante() { return nomeDenunciante; }
+    public void setNomeDenunciante(String v) { this.nomeDenunciante = v; }
+    public String getTelefoneDenunciante() { return telefoneDenunciante; }
+    public void setTelefoneDenunciante(String v) { this.telefoneDenunciante = v; }
+    public String getEmailDenunciante() { return emailDenunciante; }
+    public void setEmailDenunciante(String v) { this.emailDenunciante = v; }
+    public String getContatoConfiancaNome() { return contatoConfiancaNome; }
+    public void setContatoConfiancaNome(String v) { this.contatoConfiancaNome = v; }
+    public String getContatoConfiancaTelefone() { return contatoConfiancaTelefone; }
+    public void setContatoConfiancaTelefone(String v) { this.contatoConfiancaTelefone = v; }
 }

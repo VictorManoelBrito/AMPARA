@@ -1,0 +1,166 @@
+{
+ "id": "buscar_ajuda",
+ "titulo": "Como buscar ajuda",
+ "subtitulo": "Os serviços da rede de proteção, para que serve cada um e como montar sua rede de apoio.",
+ "telas": [
+  {
+   "titulo": "Você não está sozinha(o)",
+   "blocos": [
+    {
+     "t": "alerta",
+     "titulo": "Em perigo agora?",
+     "texto": "Ligue <b>190</b> (Polícia Militar). Se puder, vá para um lugar seguro e peça ajuda a alguém de confiança."
+    },
+    {
+     "t": "p",
+     "texto": "Além da denúncia, existe uma <b>rede de serviços</b> preparada para acolher, orientar e proteger quem vive uma situação de violência: assistência social, saúde, justiça e segurança."
+    },
+    {
+     "t": "p",
+     "texto": "Pedir ajuda não é fraqueza. Na pesquisa do DataSenado de 2025, a maioria das mulheres que sofreram violência buscou alguém: <b>57%</b> procuraram a família e <b>53%</b> buscaram apoio na igreja."
+    },
+    {
+     "t": "fonte",
+     "texto": "Fonte: Instituto DataSenado, Pesquisa Nacional de Violência contra a Mulher (2025)."
+    }
+   ]
+  },
+  {
+   "titulo": "Assistência social",
+   "numero": 1,
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "<b>CRAS</b> (Centro de Referência de Assistência Social): porta de entrada da assistência social. Orienta sobre benefícios, como o Cadastro Único e o Bolsa Família, e acompanha famílias em situação de vulnerabilidade.",
+      "<b>CREAS</b> (Centro de Referência Especializado de Assistência Social): atende pessoas e famílias com <b>direitos violados</b>, como vítimas de violência doméstica, e faz o acompanhamento especializado do caso.",
+      "<b>Centro de Referência de Atendimento à Mulher</b> e <b>Casa da Mulher Brasileira</b>, onde existirem: reúnem acolhimento, apoio psicológico, social e jurídico.",
+      "<b>Casa-abrigo</b>: moradia temporária e sigilosa para mulheres em risco de morte, com acesso pela rede de atendimento."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Saúde",
+   "numero": 2,
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Unidades básicas de saúde, UPAs e hospitais do SUS atendem pessoas em situação de violência, cuidam das lesões e oferecem apoio psicológico."
+    },
+    {
+     "t": "alerta",
+     "titulo": "Violência sexual",
+     "texto": "Procure atendimento <b>o quanto antes, de preferência em até 72 horas</b>, para receber medicamentos que previnem gravidez e infecções, inclusive o HIV."
+    },
+    {
+     "t": "p",
+     "texto": "Os serviços de saúde fazem a <b>notificação</b> dos casos de violência contra a mulher, para fins de estatística e prevenção (Lei nº 10.778/2003). Pela Lei nº 13.931/2019, quando há indícios de violência, a autoridade policial também deve ser comunicada em até 24 horas."
+    },
+    {
+     "t": "p",
+     "texto": "Para sofrimento emocional, procure a unidade de saúde ou um <b>CAPS</b>. O <b>CVV</b> oferece apoio emocional gratuito, 24 horas, pelo telefone <b>188</b>."
+    }
+   ]
+  },
+  {
+   "titulo": "Justiça",
+   "numero": 3,
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "<b>Defensoria Pública</b>: orientação e defesa jurídica gratuitas, inclusive para pedir medidas protetivas, divórcio, guarda dos filhos e pensão.",
+      "<b>Ministério Público</b>: pode pedir medidas protetivas e acompanha os processos.",
+      "<b>Juizado de Violência Doméstica e Familiar contra a Mulher</b>: julga os casos da Lei Maria da Penha."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Segurança",
+   "numero": 4,
+   "blocos": [
+    {
+     "t": "lista",
+     "itens": [
+      "<b>190</b>: Polícia Militar, para emergências.",
+      "<b>Delegacia da Mulher (DEAM)</b> ou qualquer delegacia: boletim de ocorrência e pedido de medida protetiva.",
+      "<b>Patrulha Maria da Penha</b>, onde existir: acompanha mulheres com medidas protetivas."
+     ]
+    }
+   ]
+  },
+  {
+   "titulo": "Sua rede de confiança",
+   "blocos": [
+    {
+     "t": "p",
+     "texto": "Além dos serviços, é importante ter <b>pessoas de confiança</b> por perto:"
+    },
+    {
+     "t": "lista",
+     "itens": [
+      "escolha uma ou duas pessoas para contar o que está acontecendo;",
+      "combine um <b>sinal ou palavra</b> que signifique \"preciso de ajuda\";",
+      "deixe com alguém cópias de documentos e um pouco de dinheiro;",
+      "anote os números importantes fora do celular."
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "Contato de confiança no AMPARA",
+     "texto": "Ao fazer uma denúncia anônima, você pode deixar o telefone de uma pessoa de confiança para receber o retorno da equipe."
+    }
+   ]
+  },
+  {
+   "titulo": "Onde buscar ajuda",
+   "blocos": [
+    {
+     "t": "contatos",
+     "itens": [
+      [
+       "190",
+       "Polícia Militar. Emergência, quando a violência está acontecendo ou há risco imediato."
+      ],
+      [
+       "180",
+       "Central de Atendimento à Mulher. Gratuita, 24 horas, todos os dias. Orienta, recebe denúncias e informa os serviços da sua cidade. WhatsApp (61) 9610-0180, e-mail central180@mulheres.gov.br e atendimento em Libras."
+      ],
+      [
+       "100",
+       "Disque Direitos Humanos. Violações contra crianças, pessoas idosas, pessoas com deficiência, população LGBTQIA+, vítimas de racismo e outros grupos."
+      ],
+      [
+       "Delegacia",
+       "Delegacia da Mulher ou qualquer delegacia: boletim de ocorrência e pedido de medida protetiva."
+      ],
+      [
+       "CREAS",
+       "Centro de Referência Especializado de Assistência Social: acolhimento e acompanhamento."
+      ],
+      [
+       "Defensoria",
+       "Defensoria Pública: orientação jurídica gratuita."
+      ]
+     ]
+    },
+    {
+     "t": "caixa",
+     "titulo": "Rede de Apoio do AMPARA",
+     "texto": "No menu <b>Rede de Apoio</b>, você encontra as instituições da sua cidade, com telefone, endereço e mapa."
+    }
+   ]
+  }
+ ],
+ "referencias": [
+  "BRASIL. Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha).",
+  "BRASIL. Lei nº 10.778, de 24 de novembro de 2003 (notificação compulsória da violência contra a mulher).",
+  "BRASIL. Lei nº 13.931, de 10 de dezembro de 2019.",
+  "MINISTÉRIO DO DESENVOLVIMENTO E ASSISTÊNCIA SOCIAL. CRAS e CREAS. Disponível em: gov.br/mds.",
+  "SENADO FEDERAL. Instituto de Pesquisa DataSenado. Pesquisa Nacional de Violência contra a Mulher. Brasília, 2025.",
+  "MINISTÉRIO DAS MULHERES. Central de Atendimento à Mulher – Ligue 180. Disponível em: gov.br/mulheres.",
+  "CENTRO DE VALORIZAÇÃO DA VIDA (CVV). Disponível em: cvv.org.br."
+ ]
+}

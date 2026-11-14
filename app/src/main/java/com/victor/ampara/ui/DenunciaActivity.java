@@ -267,8 +267,13 @@ public class DenunciaActivity extends AppCompatActivity {
                 binding.tvAvisoAnonimo.setVisibility(View.VISIBLE);
                 binding.tilUrgencia.setEnabled(false);
                 binding.autoCompleteUrgencia.setText("Anônima (Análise Padrão)", false);
+                binding.layoutContatoConfianca.setVisibility(View.VISIBLE);
             } else {
                 binding.tvAvisoAnonimo.setVisibility(View.GONE);
+                binding.layoutContatoConfianca.setVisibility(View.GONE);
+                binding.editContatoNome.setText("");
+                binding.editContatoTelefone.setText("");
+                binding.tilContatoTelefone.setError(null);
                 binding.tilUrgencia.setEnabled(true);
                 binding.autoCompleteUrgencia.setText("", false);
             }
@@ -315,6 +320,26 @@ public class DenunciaActivity extends AppCompatActivity {
             return;
         }
 
+        // Contato de confiança (só na anônima): opcional, mas se preenchido precisa de um telefone válido
+        contatoNome = null;
+        contatoTelefone = null;
+        binding.tilContatoTelefone.setError(null);
+        if (anonimo) {
+            String nomeContato = textoDe(binding.editContatoNome);
+            String telefoneContato = textoDe(binding.editContatoTelefone);
+            String digitos = telefoneContato.replaceAll("\\D", "");
+            if (!nomeContato.isEmpty() && telefoneContato.isEmpty()) {
+                binding.tilContatoTelefone.setError("Informe o telefone do contato");
+                return;
+            }
+            if (!telefoneContato.isEmpty() && (digitos.length() < 10 || digitos.length() > 11)) {
+                binding.tilContatoTelefone.setError("Telefone inválido. Use o DDD + número");
+                return;
+            }
+            contatoNome = nomeContato.isEmpty() ? null : nomeContato;
+            contatoTelefone = telefoneContato.isEmpty() ? null : telefoneContato;
+        }
+
         setLoading(true);
 
         if (selectedFileUri != null) {
@@ -322,6 +347,14 @@ public class DenunciaActivity extends AppCompatActivity {
         } else {
             salvarNoFirestore(tipo, dataHora, local, relato, urgencia, anonimo, null);
         }
+    }
+
+    // Contato de confiança informado na denúncia anônima (preenchido em validarEEnviar)
+    private String contatoNome;
+    private String contatoTelefone;
+
+    private static String textoDe(android.widget.EditText campo) {
+        return campo.getText() == null ? "" : campo.getText().toString().trim();
     }
 
     private void setLoading(boolean loading) {
@@ -367,7 +400,35 @@ public class DenunciaActivity extends AppCompatActivity {
             denuncia.setCidade(cidadeDetectada);
         }
 
-        // Denúncia e evidência são gravadas juntas (em lote): ou salva tudo, ou nada.
+        if (anonimo) {
+            // Anônima: o único dado de contato salvo é o contato de confiança (se informado)
+            denuncia.setContatoConfiancaNome(contatoNome);
+            denuncia.setContatoConfiancaTelefone(contatoTelefone);
+            gravarLote(denuncia, protocolo, tipo, anonimo, userId, emailUsuario, evidencia);
+            return;
+        }
+
+        // Identificada: copia nome, telefone e e-mail do cadastro para a equipe poder dar retorno
+        denuncia.setEmailDenunciante(emailUsuario);
+        if (userId == null) {
+            gravarLote(denuncia, protocolo, tipo, anonimo, userId, emailUsuario, evidencia);
+            return;
+        }
+        db.collection("Usuarios").document(userId).get()
+                .addOnSuccessListener(perfil -> {
+                    if (perfil.exists()) {
+                        denuncia.setNomeDenunciante(perfil.getString("nome"));
+                        denuncia.setTelefoneDenunciante(perfil.getString("telefone"));
+                    }
+                    gravarLote(denuncia, protocolo, tipo, anonimo, userId, emailUsuario, evidencia);
+                })
+                // Se não conseguir ler o perfil, a denúncia é salva mesmo assim (com o e-mail)
+                .addOnFailureListener(e -> gravarLote(denuncia, protocolo, tipo, anonimo, userId, emailUsuario, evidencia));
+    }
+
+    /** Grava denúncia e evidência juntas (em lote): ou salva tudo, ou nada. */
+    private void gravarLote(Denuncia denuncia, String protocolo, String tipo, boolean anonimo,
+                            String userId, String emailUsuario, ImagemHelper.Resultado evidencia) {
         WriteBatch lote = db.batch();
         DocumentReference denunciaRef = db.collection("denuncias").document();
 
