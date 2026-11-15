@@ -118,15 +118,13 @@ public class MainActivity extends AppCompatActivity {
                             byte[] foto = com.victor.ampara.util.ImagemHelper.decodificar(documentSnapshot.getString("fotoBase64"));
                             
                             if (nome != null && !nome.isEmpty()) {
-                                binding.tvUserName.setText("Olá, " + nome + "!");
+                                binding.tvUserName.setText(nome);
                                 tvNavName.setText(nome);
                             }
                             
                             if (foto != null) {
-                                Glide.with(this).load(foto).into(binding.imgProfile);
                                 Glide.with(this).load(foto).into(imgNavProfile);
                             } else if (fotoUrl != null && !fotoUrl.isEmpty()) {
-                                Glide.with(this).load(fotoUrl).into(binding.imgProfile);
                                 Glide.with(this).load(fotoUrl).into(imgNavProfile);
                             }
                         }
@@ -138,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
         // Menu Lateral
         binding.imgMenu.setOnClickListener(v -> binding.drawerLayout.openDrawer(GravityCompat.START));
 
-        // Perfil do Usuário (3.1.8)
-        binding.cardProfile.setOnClickListener(v -> startActivity(new Intent(this, PerfilActivity.class)));
+        // O perfil é acessado pelo menu lateral (item "Meu Perfil").
 
         // Cards principais
         binding.cardDenuncia.setOnClickListener(v -> startActivity(new Intent(this, DenunciaActivity.class)));
