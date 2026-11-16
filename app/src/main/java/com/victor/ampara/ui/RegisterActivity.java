@@ -1,5 +1,7 @@
 package com.victor.ampara.ui;
 
+import com.victor.ampara.util.ValidacaoUtils;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -104,8 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validarSenhaForte(String password) {
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-        return Pattern.compile(regex).matcher(password).matches();
+        return ValidacaoUtils.senhaForte(password);
     }
 
     private void cadastrarUsuario(View v, String name, String phone, String email, String password) {

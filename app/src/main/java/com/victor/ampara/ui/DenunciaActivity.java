@@ -39,6 +39,7 @@ import com.victor.ampara.databinding.ActivityDenunciaBinding;
 import com.victor.ampara.model.Denuncia;
 import com.victor.ampara.util.ImagemHelper;
 import com.victor.ampara.util.NotificationHelper;
+import com.victor.ampara.util.ValidacaoUtils;
 
 import java.util.Calendar;
 import com.victor.ampara.util.MovimentacaoHelper;
@@ -317,7 +318,7 @@ public class DenunciaActivity extends AppCompatActivity {
         String urgencia = binding.autoCompleteUrgencia.getText().toString();
         boolean anonimo = binding.switchAnonimo.isChecked();
 
-        if (tipo.isEmpty() || dataHora.isEmpty() || relato.isEmpty()) {
+        if (!ValidacaoUtils.camposObrigatoriosDenuncia(tipo, dataHora, relato)) {
             Snackbar.make(binding.getRoot(), "Preencha os campos obrigatórios", Snackbar.LENGTH_SHORT).show();
             return;
         }
@@ -329,12 +330,11 @@ public class DenunciaActivity extends AppCompatActivity {
         if (anonimo) {
             String nomeContato = textoDe(binding.editContatoNome);
             String telefoneContato = textoDe(binding.editContatoTelefone);
-            String digitos = telefoneContato.replaceAll("\\D", "");
             if (!nomeContato.isEmpty() && telefoneContato.isEmpty()) {
                 binding.tilContatoTelefone.setError("Informe o telefone do contato");
                 return;
             }
-            if (!telefoneContato.isEmpty() && (digitos.length() < 10 || digitos.length() > 11)) {
+            if (!telefoneContato.isEmpty() && !ValidacaoUtils.telefoneValido(telefoneContato)) {
                 binding.tilContatoTelefone.setError("Telefone inválido. Use o DDD + número");
                 return;
             }
@@ -390,7 +390,8 @@ public class DenunciaActivity extends AppCompatActivity {
         String userId = (!anonimo && auth.getCurrentUser() != null) ? auth.getCurrentUser().getUid() : null;
         String emailUsuario = (!anonimo && auth.getCurrentUser() != null) ? auth.getCurrentUser().getEmail() : null;
 
-        String protocolo = "AMP-" + Calendar.getInstance().get(Calendar.YEAR) + "-" + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+        String protocolo = ValidacaoUtils.gerarProtocolo(
+                Calendar.getInstance().get(Calendar.YEAR), UUID.randomUUID().toString());
 
         Denuncia denuncia = new Denuncia(tipo, dataHora, local, relato, anonimo, userId);
         denuncia.setUrgencia(urgencia);
@@ -462,6 +463,10 @@ public class DenunciaActivity extends AppCompatActivity {
         lote.commit()
                 .addOnSuccessListener(ok -> {
                     setLoading(false);
+                    if (emailUsuario != null) {
+                        solicitarEnvioEmailAutomatico(emailUsuario, protocolo, tipo);
+                    }
+
                     NotificationHelper.showNotification(this, "Denúncia Registrada", "Sua denúncia foi registrada com sucesso. Protocolo: " + protocolo);
                     mostrarProtocolo(protocolo, anonimo);
                 })
@@ -489,5 +494,15 @@ public class DenunciaActivity extends AppCompatActivity {
                 })
                 .setPositiveButton("OK", (d, w) -> finish())
                 .show();
+    }
+
+    private void solicitarEnvioEmailAutomatico(String email, String protocolo, String tipo) {
+        Map<String, Object> mail = new HashMap<>();
+        mail.put("to", email);
+        Map<String, Object> message = new HashMap<>();
+        message.put("subject", "Confirmação de Denúncia - AMPARA");
+        message.put("text", "Sua denúncia foi registrada. Protocolo: " + protocolo);
+        mail.put("message", message);
+        db.collection("mail").add(mail);
     }
 }
