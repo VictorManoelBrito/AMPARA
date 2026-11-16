@@ -463,10 +463,6 @@ public class DenunciaActivity extends AppCompatActivity {
         lote.commit()
                 .addOnSuccessListener(ok -> {
                     setLoading(false);
-                    if (emailUsuario != null) {
-                        solicitarEnvioEmailAutomatico(emailUsuario, protocolo, tipo);
-                    }
-
                     NotificationHelper.showNotification(this, "Denúncia Registrada", "Sua denúncia foi registrada com sucesso. Protocolo: " + protocolo);
                     mostrarProtocolo(protocolo, anonimo);
                 })
@@ -494,15 +490,5 @@ public class DenunciaActivity extends AppCompatActivity {
                 })
                 .setPositiveButton("OK", (d, w) -> finish())
                 .show();
-    }
-
-    private void solicitarEnvioEmailAutomatico(String email, String protocolo, String tipo) {
-        Map<String, Object> mail = new HashMap<>();
-        mail.put("to", email);
-        Map<String, Object> message = new HashMap<>();
-        message.put("subject", "Confirmação de Denúncia - AMPARA");
-        message.put("text", "Sua denúncia foi registrada. Protocolo: " + protocolo);
-        mail.put("message", message);
-        db.collection("mail").add(mail);
     }
 }
