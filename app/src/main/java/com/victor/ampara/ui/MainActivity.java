@@ -138,6 +138,13 @@ public class MainActivity extends AppCompatActivity {
 
         // O perfil é acessado pelo menu lateral (item "Meu Perfil").
 
+        // Busca simples (funções, conteúdos, leis, quiz e rede de apoio)
+        binding.cardSearch.setOnClickListener(v -> BuscaActivity.abrir(this, null));
+        binding.tvBuscaHome.setOnClickListener(v -> BuscaActivity.abrir(this, null));
+
+        // Atalho do rodapé: volta ao início da tela inicial
+        binding.imgNavHome.setOnClickListener(v -> voltarAoInicio());
+
         // Cards principais
         binding.cardDenuncia.setOnClickListener(v -> startActivity(new Intent(this, DenunciaActivity.class)));
         binding.cardMinhasDenuncias.setOnClickListener(v -> startActivity(new Intent(this, MinhasDenunciasActivity.class)));
@@ -168,5 +175,12 @@ public class MainActivity extends AppCompatActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
+    }
+
+    /** Atalho "Início" do rodapé: fecha o menu e volta as listas da tela inicial para o começo. */
+    private void voltarAoInicio() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        binding.scrollHighlights.smoothScrollTo(0, 0);
+        binding.scrollEducacional.smoothScrollTo(0, 0);
     }
 }

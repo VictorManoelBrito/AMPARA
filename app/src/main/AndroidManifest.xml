@@ -92,9 +92,10 @@
         <activity android:name=".ui.SettingsActivity"
             android:exported="false"
             android:label="Configurações" />
-        <activity android:name=".ui.AdminDashboardActivity"
+        <activity android:name=".ui.BuscaActivity"
             android:exported="false"
-            android:label="Painel Administrativo" />
+            android:label="Buscar"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".ui.DetalhesInstituicaoActivity"
             android:exported="false"
             android:label="Detalhes da Instituição" />

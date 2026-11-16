@@ -92,6 +92,8 @@
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintTop_toBottomOf="@id/tvWelcomeSubtitle">
 
             <LinearLayout
@@ -108,14 +110,14 @@
                     android:src="@android:drawable/ic_menu_search"
                     app:tint="#9E9E9E" />
 
-                <EditText
+                <!-- Ao tocar, abre a tela de busca (BuscaActivity) -->
+                <TextView
+                    android:id="@+id/tvBuscaHome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:background="@android:color/transparent"
-                    android:hint="O que você procura hoje?"
-                    android:inputType="text"
-                    android:textColorHint="#BDBDBD"
+                    android:text="O que você procura hoje?"
+                    android:textColor="#BDBDBD"
                     android:textSize="15sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -360,6 +362,7 @@
 
             <!-- Rolagem: em telas menores os botões não cabem todos no card -->
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollEducacional"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
@@ -445,10 +448,16 @@
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <!-- Atalho para o início da tela inicial (rola para o topo e fecha o menu) -->
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:contentDescription="Home"
+            android:id="@+id/imgNavHome"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Início"
             android:src="@android:drawable/ic_menu_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
